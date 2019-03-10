@@ -8,10 +8,10 @@ include src/Makefile.mk
 INCLUDES += 
 LIBDIR += 
 LIBS +=
-RLIBDIR += $(LIBDIR)
-RLIBS += $(LIBS)
-DLIBDIR += $(LIBDIR)
-DLIBS += $(LIBS)
+RLIBDIR += 
+RLIBS += 
+DLIBDIR += 
+DLIBS += 
 
 # Toolchain settings
 MAKE = make
@@ -58,12 +58,12 @@ release: export CFLAGS := $(COMPILE_C_FLAGS) $(C_RELEASE_COMPILE_FLAGS) $(DEFINE
 release: export CXXFLAGS := $(COMPILE_CXX_FLAGS) $(CXX_RELEASE_COMPILE_FLAGS) $(DEFINES_RELEASE) $(DEFINES)
 release: export ASMFLAGS := $(COMPILE_ASM_FLAGS) $(ASM_RELEASE_COMPILE_FLAGS) $(DEFINES_RELEASE) $(DEFINES)
 release: export LDFLAGS := $(LINK_FLAGS) $(LINK_FLAGS_RELEASE) $(LIBDIR) $(RLIBDIR) $(LDSCRIPT)
-release: export LIBS := $(LIBS) $(RLIBS)
+release: export LIBRARIES := $(LIBS) $(RLIBS)
 debug: export CFLAGS := $(COMPILE_C_FLAGS) $(C_DEBUG_COMPILE_FLAGS) $(DEFINES_DEBUG) $(DEFINES)
 debug: export CXXFLAGS := $(COMPILE_CXX_FLAGS) $(CXX_DEBUG_COMPILE_FLAGS) $(DEFINES_DEBUG) $(DEFINES)
 debug: export ASMFLAGS := $(COMPILE_ASM_FLAGS) $(ASM_DEBUG_COMPILE_FLAGS) $(DEFINES_DEBUG) $(DEFINES)
 debug: export LDFLAGS := $(LINK_FLAGS) $(LINK_FLAGS_DEBUG) $(LIBDIR) $(DLIBDIR) $(LDSCRIPT)
-debug: export LIBS := $(LIBS) $(DLIBS)
+debug: export LIBRARIES := $(LIBS) $(DLIBS)
 
 # Build and output paths
 release: export BUILD_PATH := build/$(PLATFORM)/release
@@ -85,11 +85,13 @@ DEPS = $(OBJECTS:.o=.d)
 
 # Standard, non-optimized release build
 release: dirs
+	$(MAKE) -C squantorLibC release PLATFORM=$(PLATFORM)
 	$(MAKE) -C .. release PLATFORM=$(PLATFORM)
 	$(MAKE) all --no-print-directory
 
 # Debug build for gdb debugging
 debug: dirs
+	$(MAKE) -C squantorLibC debug PLATFORM=$(PLATFORM)
 	$(MAKE) -C .. debug PLATFORM=$(PLATFORM)
 	$(MAKE) all --no-print-directory
 
@@ -102,6 +104,7 @@ dirs:
 clean_debug:
 clean_release:
 clean:
+	$(MAKE) -C squantorLibC clean
 	$(MAKE) -C .. clean
 	$(RM) -r build
 	$(RM) -r bin
@@ -111,7 +114,7 @@ all: $(BIN_PATH)/$(BIN_NAME).elf
 
 # create the executable
 $(BIN_PATH)/$(BIN_NAME).elf: $(OBJECTS)
-	$(TOOLCHAIN_PREFIX)$(LINKER) $(LDFLAGS) $(OBJECTS) -Map="$@.map" -o $@ $(LIBS)
+	$(TOOLCHAIN_PREFIX)$(LINKER) $(LDFLAGS) $(OBJECTS) -Map="$@.map" -o $@ $(LIBRARIES)
 	# dump size and log to file
 	date >> size$(BUILD_TARGET).log
 	$(TOOLCHAIN_PREFIX)$(SIZE) $@ >> size$(BUILD_TARGET).log
