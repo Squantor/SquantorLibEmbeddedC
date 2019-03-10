@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqLibEmbeddedC" Version="10.0.0" InternalType="">
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="inc">
     <File Name="inc/sqstdiodefs.h"/>
     <File Name="inc/sqstring.h"/>
@@ -25,50 +20,31 @@
     <File Name="inc/sqctypetable.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
-    <File Name="src/strlen.c"/>
-    <File Name="src/getchar.c"/>
-    <File Name="src/cmdline_prompt.c"/>
-    <File Name="src/memcmp.c"/>
-    <File Name="src/putchar.c"/>
-    <File Name="src/toupper.c"/>
-    <File Name="src/fgetc.c"/>
-    <File Name="src/empty_stdio.c"/>
-    <File Name="src/isalpha.c"/>
-    <File Name="src/strtok.c"/>
-    <File Name="src/isxdigit.c"/>
-    <File Name="src/queue_compact.c"/>
-    <File Name="src/parse_ansi.c"/>
-    <File Name="src/iscntrl.c"/>
-    <File Name="src/memchr.c"/>
-    <File Name="src/isgraph.c"/>
-    <File Name="src/isalnum.c"/>
-    <File Name="src/strto.c"/>
-    <File Name="src/isupper.c"/>
-    <File Name="src/memset.c"/>
-    <File Name="src/fputs.c"/>
-    <File Name="src/puts.c"/>
-    <File Name="src/fputc.c"/>
-    <File Name="src/queue_string.c"/>
-    <File Name="src/fgets.c"/>
-    <File Name="src/strcmp.c"/>
-    <File Name="src/isascii.c"/>
-    <File Name="src/memmove.c"/>
-    <File Name="src/isblank.c"/>
-    <File Name="src/empty_logfs.c"/>
-    <File Name="src/tolower.c"/>
-    <File Name="src/strncpy.c"/>
-    <File Name="src/isdigit.c"/>
-    <File Name="src/logfs.c"/>
-    <File Name="src/isspace.c"/>
-    <File Name="src/ispunct.c"/>
-    <File Name="src/cmdline.c"/>
-    <File Name="src/memcpy.c"/>
-    <File Name="src/islower.c"/>
-    <File Name="src/isprint.c"/>
-    <File Name="src/print.c"/>
-    <File Name="src/cmdline_cmd.c"/>
-    <File Name="src/ctypetable.c"/>
+    <VirtualDirectory Name="print">
+      <File Name="src/print/print.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="queue">
+      <File Name="src/queue/queue_compact.c"/>
+      <File Name="src/queue/queue_string.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="logfs">
+      <File Name="src/logfs/empty_logfs.c"/>
+      <File Name="src/logfs/logfs.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="cmdline">
+      <File Name="src/cmdline/cmdline_prompt.c"/>
+      <File Name="src/cmdline/cmdline.c"/>
+      <File Name="src/cmdline/cmdline_cmd.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="ansi">
+      <File Name="src/ansi/parse_ansi.c"/>
+    </VirtualDirectory>
   </VirtualDirectory>
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Dynamic Library">
