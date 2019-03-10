@@ -1,0 +1,3 @@
+[submodule "tests/squantorLibC"]
+	path = tests/squantorLibC
+	url = https://github.com/Squantor/squantorLibC.git
