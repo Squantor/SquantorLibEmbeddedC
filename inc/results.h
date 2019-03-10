@@ -1,7 +1,7 @@
 /*
-MIT License
+The MIT License (MIT)
 
-Copyright (c) 2019 Bart Bilos
+Copyright (c) 2018 Bart Bilos
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,42 +21,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-/*
-*/
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
+#ifndef RESULTS_H
+#define RESULTS_H
 
-int write( int f, const char* d, int l )
-{
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-   return( ret );
+typedef enum {
+    noError = 0,
+    error,
+    invalidArg,     // invalid (often NULL) argument passed, good case for hard assert
+    cmdlineNotFound,
+    cmdlineInvalidArg,
+    streamEOF,
+    flashUnknownId,
+    flashInvalidAddr,
+    fileNotFound,	// could not find file
+    fileNoEntries,	// could not find free entry
+    fileNoSpace,	// insufficient free space
+    queueFull,
+    queueNotEmpty,
+    queueEmpty,
+    dataInvalid,    // you passed data that is problematic
+    resultEnd,
+} result;
+
+#ifdef __cplusplus
 }
+#endif
 
-int str_len( const char *string )
-{
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
-}
-
-void println( const char* string )
-{
-   write( 1, string, str_len( string ) );
-   write( 1, "\n", 1 );
-}
-
-int main(int argc, char *argv[]) {
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    // print something if we have a failure
-    if(minunitFailures != 0)
-        println("Test failures occured!");
-    else
-        println("All tests passed.");
-    return 0;
-}
+#endif

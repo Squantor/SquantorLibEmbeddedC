@@ -1,7 +1,7 @@
 /*
-MIT License
+The MIT License (MIT)
 
-Copyright (c) 2019 Bart Bilos
+Copyright (c) 2016 Bart Bilos
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -20,43 +20,28 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
+#ifndef PARSE_ANSI_H
+#define PARSE_ANSI_H
+
+typedef enum
+{
+    // below this value when busy with parsing but not known yet
+    ansiEntered,    // detected ANSI escape, continue sequence detection
+    ansiBrackOpen,  // bracket open (Display or keyboard)
+    ansiKnown,      // boundary between busy and steady state
+    // below this value are final states
+    ansiCursorUp,   
+    ansiCursorDown, 
+    ansiCursorForward,
+    ansiCursorBackward,
+    ansiError,      // unknown sequence
+} ansiSequence;
+
 /*
-*/
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
+ * Feed ansiParse a sequence of characters to find out what the sequence actually
+ * means. 
+ */
+ansiSequence ansiParse(char c);
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
-
-int write( int f, const char* d, int l )
-{
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
-}
-
-int str_len( const char *string )
-{
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
-}
-
-void println( const char* string )
-{
-   write( 1, string, str_len( string ) );
-   write( 1, "\n", 1 );
-}
-
-int main(int argc, char *argv[]) {
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    // print something if we have a failure
-    if(minunitFailures != 0)
-        println("Test failures occured!");
-    else
-        println("All tests passed.");
-    return 0;
-}
+#endif
