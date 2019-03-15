@@ -25,6 +25,7 @@ SOFTWARE.
 */
 #include <sqMinUnitC.h>
 #include <test_dswritechar.h>
+#include <datastream.h>
 
 static void testDsWriteCharSetup(void) 
 {

@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqLibEmbeddedC" Version="10.0.0" InternalType="">
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="inc">
-    <File Name="inc/datastream.h"/>
-    <File Name="inc/sqstdiodefs.h"/>
-    <File Name="inc/sqstring.h"/>
-    <File Name="inc/sqctype.h"/>
     <File Name="inc/parse_ansi.h"/>
-    <File Name="inc/logfs.h"/>
-    <File Name="inc/cmdline.h"/>
     <File Name="inc/results.h"/>
-    <File Name="inc/queue_compact.h"/>
     <File Name="inc/queue_string.h"/>
-    <File Name="inc/print.h"/>
-    <File Name="inc/logfsint.h"/>
     <File Name="inc/queue_macro.h"/>
     <File Name="inc/cmdline_prompt.h"/>
-    <File Name="inc/sqstdio.h"/>
-    <File Name="inc/sqstdlib.h"/>
-    <File Name="inc/cmdline_cmd.h"/>
-    <File Name="inc/sqctypetable.h"/>
+    <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
     <VirtualDirectory Name="datastream">
@@ -32,26 +15,21 @@
       <File Name="src/datastream/dsreadchar.c"/>
       <File Name="src/datastream/dswriteu8.c"/>
     </VirtualDirectory>
-    <VirtualDirectory Name="print">
-      <File Name="src/print/print.c"/>
-    </VirtualDirectory>
     <VirtualDirectory Name="queue">
-      <File Name="src/queue/queue_compact.c"/>
       <File Name="src/queue/queue_string.c"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="logfs">
-      <File Name="src/logfs/empty_logfs.c"/>
-      <File Name="src/logfs/logfs.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="cmdline">
       <File Name="src/cmdline/cmdline_prompt.c"/>
-      <File Name="src/cmdline/cmdline.c"/>
-      <File Name="src/cmdline/cmdline_cmd.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="ansi">
       <File Name="src/ansi/parse_ansi.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Dynamic Library">
