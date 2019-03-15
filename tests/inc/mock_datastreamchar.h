@@ -30,6 +30,7 @@ SOFTWARE.
 #define BADCHAR     12
 
 void mockDsCharReset();
+result mockDsCharSetupWrite(int maxWrites);
 
 extern datastreamChar_t testDsChar;
 
