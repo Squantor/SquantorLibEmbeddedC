@@ -25,12 +25,13 @@ SOFTWARE.
 */
 #include <rt0/syscall.h>
 #include <test_parse_ansi.h>
+#include <test_queue_string.h>
 
 int minunitRun; /* tests run */
 int minunitFailures; /* tests failed */
 int minunitAsserts; /* asserts run */
 
-int write( int f, const char* d, int l )
+int sysWrite( int f, const char* d, int l )
 {
    int ret = syscall3( SYS_write, f, ( long )( d ), l );
 
@@ -46,13 +47,14 @@ int str_len( const char *string )
 
 void println( const char* string )
 {
-   write( 1, string, str_len( string ) );
-   write( 1, "\n", 1 );
+   sysWrite( 1, string, str_len( string ) );
+   sysWrite( 1, "\n", 1 );
 }
 
 int main() {
     // sort test modules on dependencies
     testParseAnsiSuite();
+    testQueueStringSuite();
     // print something if we have a failure
     if(minunitFailures != 0)
         println("Test failures occured!");
