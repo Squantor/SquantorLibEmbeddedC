@@ -6,6 +6,7 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_dswritechar.h"/>
     <File Name="inc/test_cmdprompt.h"/>
     <File Name="inc/test_dummy.h"/>
     <File Name="inc/test_parse_ansi.h"/>
@@ -22,6 +23,7 @@
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/test_dswritechar.c"/>
     <File Name="src/test_dummy.c"/>
     <File Name="src/test_cmdprompt.c"/>
     <File Name="src/cmdline_help.c"/>

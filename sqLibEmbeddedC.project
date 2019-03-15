@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqLibEmbeddedC" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/datastream.h"/>
     <File Name="inc/sqstdiodefs.h"/>
     <File Name="inc/sqstring.h"/>
     <File Name="inc/sqctype.h"/>
@@ -20,6 +26,12 @@
     <File Name="inc/sqctypetable.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="datastream">
+      <File Name="src/datastream/dswritechar.c"/>
+      <File Name="src/datastream/dsreadu8.c"/>
+      <File Name="src/datastream/dsreadchar.c"/>
+      <File Name="src/datastream/dswriteu8.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="print">
       <File Name="src/print/print.c"/>
     </VirtualDirectory>
@@ -40,11 +52,6 @@
       <File Name="src/ansi/parse_ansi.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Dynamic Library">
