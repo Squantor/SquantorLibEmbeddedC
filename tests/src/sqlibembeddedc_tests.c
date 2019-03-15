@@ -50,7 +50,7 @@ void println( const char* string )
    write( 1, "\n", 1 );
 }
 
-int main(int argc, char *argv[]) {
+int main() {
     // sort test modules on dependencies
     testParseAnsiSuite();
     // print something if we have a failure
