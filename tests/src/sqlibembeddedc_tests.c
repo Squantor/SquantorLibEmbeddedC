@@ -57,6 +57,7 @@ int main() {
     testParseAnsiSuite();
     testQueueStringSuite();
     testCmdPromptSuite();
+    testDsWriteCharSuite();
     // print something if we have a failure
     if(minunitFailures != 0)
         println("Test failures occured!");
