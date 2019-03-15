@@ -23,9 +23,9 @@ SOFTWARE.
 */
 /*
 */
-#ifndef TEST_DUMMY_H
-#define TEST_DUMMY_H
+#ifndef TEST_DSWRITECHAR_H
+#define TEST_DSWRITECHAR_H
 
-void testDummySuite();
+void testDsWriteCharSuite();
 
 #endif

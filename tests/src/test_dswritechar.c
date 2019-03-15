@@ -24,30 +24,30 @@ SOFTWARE.
 /*
 */
 #include <sqMinUnitC.h>
-#include <test_dummy.h>
+#include <test_dswritechar.h>
 
-static void testDummySetup(void) 
+static void testDsWriteCharSetup(void) 
 {
     
 }
 
-static void testDummyTeardown(void) 
+static void testDsWriteCharTeardown(void) 
 {
 
 }
 
-MU_TEST(testDummyNormal) 
+MU_TEST(testDsWriteCharNormal) 
 {
 
 }
 
-MU_TEST_SUITE(testDummy) 
+MU_TEST_SUITE(testDsWriteChar) 
 {
-    MU_SUITE_CONFIGURE(&testDummySetup, &testDummyTeardown);
-    MU_RUN_TEST(testDummyNormal);
+    MU_SUITE_CONFIGURE(&testDsWriteCharSetup, &testDsWriteCharTeardown);
+    MU_RUN_TEST(testDsWriteCharNormal);
 }
 
-void testDummySuite()
+void testDsWriteCharSuite()
 {
-    MU_RUN_SUITE(testDummy);
+    MU_RUN_SUITE(testDsWriteChar);
 }
