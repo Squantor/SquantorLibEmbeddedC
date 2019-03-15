@@ -21,34 +21,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-/*
+#ifndef CMDLINE_PROMPT_H
+#define CMDLINE_PROMPT_H
+
+#include <queue_string.h>
+#include <results.h>
+
+/* pass stringqueue to commandline prompt */
+void cmdlinePromptInit(t_queueString * q);
+/* 
+Call when you get a new character from your stdin and pass in c.
+When some characters need to be returned, these show up in rc, EOF if nothing is there.
+When a full commandline is input, calls cmdlineParse to interpret command.
 */
-#include <sqMinUnitC.h>
-#include <test_cmdprompt.h>
-#include <cmdline_prompt.h>
+result cmdlinePromptProcess(int c, int *rc, result (*cmdlineParse)(char *cmdline));
 
-static void testCmdPromptSetup(void) 
-{
-    
-}
-
-static void testCmdPromptTeardown(void) 
-{
-
-}
-
-MU_TEST(testCmdPromptNormal) 
-{
-
-}
-
-MU_TEST_SUITE(testCmdPrompt) 
-{
-    MU_SUITE_CONFIGURE(&testCmdPromptSetup, &testCmdPromptTeardown);
-    MU_RUN_TEST(testCmdPromptNormal);
-}
-
-void testCmdPromptSuite()
-{
-    MU_RUN_SUITE(testCmdPrompt);
-}
+#endif
