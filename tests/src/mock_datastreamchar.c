@@ -27,8 +27,8 @@ SOFTWARE.
 
 #define MOCKDSCHARBUFSIZE   128
 
-result mockDsCharWrite(datastreamChar_t *this, const char *c);
-result mockDsCharRead(datastreamChar_t *this,  char *c);
+result mockDsCharWrite(const char *c);
+result mockDsCharRead(char *c);
 
 const char testDsCharName[] = "char stream";
 datastreamChar_t testDsChar = 
@@ -40,22 +40,47 @@ datastreamChar_t testDsChar =
 
 char dsCharWriteBuf[MOCKDSCHARBUFSIZE];
 int dsCharWriteBufIdx;
+int dsCharWriteBufMax;
 char dsCharReadBuf[MOCKDSCHARBUFSIZE];
 int dsCharReadBufIdx;
 
 void mockDsCharReset()
 {
     dsCharWriteBufIdx = dsCharReadBufIdx = 0;
+    dsCharWriteBufMax = 0;
     memset(dsCharWriteBuf, 0, sizeof(dsCharWriteBuf));
     memset(dsCharReadBuf, 0, sizeof(dsCharReadBuf));
 }
 
-result mockDsCharWrite(datastreamChar_t *this, const char *c)
+result mockDsCharSetupWrite(int maxWrites)
 {
-
+    if(maxWrites < MOCKDSCHARBUFSIZE)
+    {
+        dsCharWriteBufMax = maxWrites;
+        return noError;
+    }
+    else
+        return error;
 }
 
-result mockDsCharRead(datastreamChar_t *this,  char *c)
+result mockDsCharSetupRead(char *buf, size_t size)
 {
-    
+    return error;
+}
+
+
+result mockDsCharWrite(const char *c)
+{
+    if(dsCharWriteBufIdx == dsCharWriteBufMax)
+    {
+        return streamFull;
+    }
+    dsCharWriteBuf[dsCharWriteBufIdx] = *c;
+    dsCharWriteBufIdx++;
+    return noError;
+}
+
+result mockDsCharRead(char *c)
+{
+    return noError;
 }

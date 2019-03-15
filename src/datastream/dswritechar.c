@@ -26,5 +26,5 @@ SOFTWARE.
 
 result dsWriteChar(const char c, datastreamChar_t *stream)
 {
-    return stream->write(stream, &c);
+    return stream->write(&c);
 }

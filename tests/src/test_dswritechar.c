@@ -40,8 +40,10 @@ static void testDsWriteCharTeardown(void)
 
 MU_TEST(testDsWriteCharNormal) 
 {
-    mu_check(dsWriteChar(GOODCHAR, &testDsChar) == noError);
-    mu_check(dsWriteChar(BADCHAR, &testDsChar) == error);
+    mu_check(mockDsCharSetupWrite(2) == noError);
+    mu_check(dsWriteChar('a', &testDsChar) == noError);
+    mu_check(dsWriteChar('b', &testDsChar) == noError);
+    mu_check(dsWriteChar('c', &testDsChar) == streamFull);
 }
 
 MU_TEST_SUITE(testDsWriteChar) 

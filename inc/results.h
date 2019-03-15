@@ -36,6 +36,7 @@ typedef enum {
     cmdlineNotFound,
     cmdlineInvalidArg,
     streamEOF,
+    streamFull,
     flashUnknownId,
     flashInvalidAddr,
     fileNotFound,	// could not find file

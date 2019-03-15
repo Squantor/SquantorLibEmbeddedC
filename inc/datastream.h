@@ -31,8 +31,8 @@ typedef struct datastreamChar datastreamChar_t;
 
 struct datastreamChar
 {
-    result (*write)(datastreamChar_t *this, const char *c);
-    result (*read)(datastreamChar_t *this,  char *c);
+    result (*write)(const char *c);
+    result (*read)(char *c);
     const char *name;
 };
 

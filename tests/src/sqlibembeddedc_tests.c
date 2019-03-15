@@ -27,6 +27,7 @@ SOFTWARE.
 #include <test_parse_ansi.h>
 #include <test_queue_string.h>
 #include <test_cmdprompt.h>
+#include <test_dswritechar.h>
 
 int minunitRun; /* tests run */
 int minunitFailures; /* tests failed */
