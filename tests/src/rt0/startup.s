@@ -38,7 +38,7 @@ _start:
         andq    $~15,%rsp
         call    main
         movq    %rax,%rdi
-        call    _exit
+        call    sys_exit
 
         /* force an illegal opcode exception if _exit returns */
         ud2

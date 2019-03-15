@@ -28,7 +28,7 @@ Modified with help from: https://github.com/zhmu
 
 #include <rt0/syscall.h>
 
-void _exit( int r )
+void sys_exit( int r )
 {
    syscall1( SYS_exit, r );
 }
