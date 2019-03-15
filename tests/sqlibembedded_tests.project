@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqlibembedded_tests" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_cmdprompt.h"/>
+    <File Name="inc/test_dummy.h"/>
     <File Name="inc/test_parse_ansi.h"/>
     <File Name="inc/test_cmdline.h"/>
     <File Name="inc/test_queue_string.h"/>
@@ -15,6 +22,8 @@
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/test_dummy.c"/>
+    <File Name="src/test_cmdprompt.c"/>
     <File Name="src/cmdline_help.c"/>
     <File Name="src/cmdline_test.c"/>
     <File Name="src/sqlibembedded_tests_old.c"/>
@@ -28,11 +37,6 @@
       <File Name="src/rt0/_exit.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Executable">

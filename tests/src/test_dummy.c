@@ -26,12 +26,12 @@ SOFTWARE.
 #include <sqMinUnitC.h>
 #include <test_dummy.h>
 
-void testDummySetup(void) 
+static void testDummySetup(void) 
 {
     
 }
 
-void testDummyTeardown(void) 
+static void testDummyTeardown(void) 
 {
 
 }

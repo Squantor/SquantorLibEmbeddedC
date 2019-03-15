@@ -1,7 +1,7 @@
 # project settings
 BIN_NAME = sqlibembeddedC_tests
 C_SOURCES += src/sqlibembeddedc_tests.c \
-src/test_parse_ansi.c src/test_queue_string.c
+src/test_parse_ansi.c src/test_queue_string.c src/test_cmdprompt.c
 CXX_SOURCES +=
 S_SOURCES +=
 INCLUDES = -Iinc -I../inc -IsquantorLibC/inc

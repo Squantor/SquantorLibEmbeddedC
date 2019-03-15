@@ -23,44 +23,31 @@ SOFTWARE.
 */
 /*
 */
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
-#include <test_queue_string.h>
+#include <sqMinUnitC.h>
 #include <test_cmdprompt.h>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
-
-int sysWrite( int f, const char* d, int l )
+static void testCmdPromptSetup(void) 
 {
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
+    
 }
 
-int str_len( const char *string )
+static void testCmdPromptTeardown(void) 
 {
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
+
 }
 
-void println( const char* string )
+MU_TEST(testCmdPromptNormal) 
 {
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
+
 }
 
-int main() {
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    testQueueStringSuite();
-    testCmdPromptSuite();
-    // print something if we have a failure
-    if(minunitFailures != 0)
-        println("Test failures occured!");
-    else
-        println("All tests passed.");
-    return 0;
+MU_TEST_SUITE(testCmdPrompt) 
+{
+    MU_SUITE_CONFIGURE(&testCmdPromptSetup, &testCmdPromptTeardown);
+    MU_RUN_TEST(testCmdPromptNormal);
+}
+
+void testCmdPromptSuite()
+{
+    MU_RUN_SUITE(testCmdPrompt);
 }
