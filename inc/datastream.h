@@ -31,10 +31,11 @@ typedef struct datastreamChar datastreamChar_t;
 
 struct datastreamChar
 {
-    result (*write)(datastreamChar_t *this, const char *buf, size_t len, size_t *written);
-    result (*read)(datastreamChar_t *this,  char *buf, size_t len, size_t *read);
+    result (*write)(datastreamChar_t *this, const char *c);
+    result (*read)(datastreamChar_t *this,  char *c);
     const char *name;
 };
 
+result dsWriteChar(const char c, datastreamChar_t *stream);
 
 #endif

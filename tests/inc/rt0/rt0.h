@@ -11,7 +11,7 @@ extern char **__environ; /* pointer to array of char * strings that define the c
 extern int errno;
 extern char _end, _edata, _etext, __executable_start;
 
-void _exit( int r ) __attribute__((noreturn));
+void _exit(int r);
 /*
 int close( int file );
 int execve( char* name, char** argv, char** env );

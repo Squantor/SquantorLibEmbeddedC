@@ -26,10 +26,11 @@ SOFTWARE.
 #include <sqMinUnitC.h>
 #include <test_dswritechar.h>
 #include <datastream.h>
+#include <mock_datastreamchar.h>
 
 static void testDsWriteCharSetup(void) 
 {
-    
+    mockDsCharReset();
 }
 
 static void testDsWriteCharTeardown(void) 
@@ -39,7 +40,8 @@ static void testDsWriteCharTeardown(void)
 
 MU_TEST(testDsWriteCharNormal) 
 {
-
+    mu_check(dsWriteChar(GOODCHAR, &testDsChar) == noError);
+    mu_check(dsWriteChar(BADCHAR, &testDsChar) == error);
 }
 
 MU_TEST_SUITE(testDsWriteChar) 
