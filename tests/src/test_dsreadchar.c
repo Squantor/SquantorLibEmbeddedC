@@ -21,24 +21,47 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef DATASTREAM_H
-#define DATASTREAM_H
+/*
+*/
+#include <sqMinUnitC.h>
+#include <test_dsreadchar.h>
+#include <datastream.h>
+#include <mock_datastreamchar.h>
 
-#include <results.h>
-#include <stddef.h>
+char testabc[] = "abc";
 
-typedef struct datastreamChar datastreamChar_t;
-
-struct datastreamChar
+static void testDsReadCharSetup(void) 
 {
-    result (*write)(const char *c);
-    result (*read)(char *c);
-    const char *name;
-};
+    mockDsCharReset();
+}
 
-/* write c to stream*/
-result dsWriteChar(const char c, datastreamChar_t *stream);
-/* reads from stream into c */
-result dsReadChar(char *c, datastreamChar_t *stream);
+static void testDsReadCharTeardown(void) 
+{
 
-#endif
+}
+
+MU_TEST(testDsReadCharNormal) 
+{
+    char c;
+    mu_check(mockDsCharSetupRead(testabc, sizeof(testabc)) == noError);
+    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(c == 'a');
+    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(c == 'b');
+    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(c == 'c');
+    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(c == '\0');
+    mu_check(dsReadChar(&c, &testDsChar) == streamEmtpy);
+}
+
+MU_TEST_SUITE(testDsReadChar) 
+{
+    MU_SUITE_CONFIGURE(&testDsReadCharSetup, &testDsReadCharTeardown);
+    MU_RUN_TEST(testDsReadCharNormal);
+}
+
+void testDsReadCharSuite()
+{
+    MU_RUN_SUITE(testDsReadChar);
+}

@@ -5,13 +5,13 @@ include platforms/$(PLATFORM).mk
 # load project settings
 include src/Makefile.mk
 
-INCLUDES += 
-LIBDIR += 
+INCLUDES +=
+LIBDIR +=
 LIBS +=
-RLIBDIR += 
-RLIBS += 
-DLIBDIR += 
-DLIBS += 
+RLIBDIR +=
+RLIBS +=
+DLIBDIR +=
+DLIBS +=
 
 # Toolchain settings
 MAKE = make

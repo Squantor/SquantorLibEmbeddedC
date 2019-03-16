@@ -31,6 +31,7 @@ SOFTWARE.
 
 void mockDsCharReset();
 result mockDsCharSetupWrite(int maxWrites);
+result mockDsCharSetupRead(char *buf, size_t size);
 
 extern datastreamChar_t testDsChar;
 

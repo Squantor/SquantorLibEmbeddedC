@@ -43,6 +43,7 @@ int dsCharWriteBufIdx;
 int dsCharWriteBufMax;
 char dsCharReadBuf[MOCKDSCHARBUFSIZE];
 int dsCharReadBufIdx;
+int dsCharReadBufMax;
 
 void mockDsCharReset()
 {
@@ -65,16 +66,18 @@ result mockDsCharSetupWrite(int maxWrites)
 
 result mockDsCharSetupRead(char *buf, size_t size)
 {
-    return error;
+    if(size > MOCKDSCHARBUFSIZE)
+        return error;
+    memcpy(dsCharReadBuf, buf, size);
+    dsCharReadBufMax = (int) size;
+    return noError;
 }
 
 
 result mockDsCharWrite(const char *c)
 {
     if(dsCharWriteBufIdx == dsCharWriteBufMax)
-    {
         return streamFull;
-    }
     dsCharWriteBuf[dsCharWriteBufIdx] = *c;
     dsCharWriteBufIdx++;
     return noError;
@@ -82,5 +85,9 @@ result mockDsCharWrite(const char *c)
 
 result mockDsCharRead(char *c)
 {
+    if(dsCharReadBufIdx == dsCharReadBufMax)
+        return streamEmtpy;
+    *c = dsCharReadBuf[dsCharReadBufIdx];
+    dsCharReadBufIdx++;
     return noError;
 }

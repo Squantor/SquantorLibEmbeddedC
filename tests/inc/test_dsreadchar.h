@@ -21,24 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef DATASTREAM_H
-#define DATASTREAM_H
+/*
+*/
+#ifndef TEST_DSREADCHAR_H
+#define TEST_DSREADCHAR_H
 
-#include <results.h>
-#include <stddef.h>
-
-typedef struct datastreamChar datastreamChar_t;
-
-struct datastreamChar
-{
-    result (*write)(const char *c);
-    result (*read)(char *c);
-    const char *name;
-};
-
-/* write c to stream*/
-result dsWriteChar(const char c, datastreamChar_t *stream);
-/* reads from stream into c */
-result dsReadChar(char *c, datastreamChar_t *stream);
+void testDsReadCharSuite();
 
 #endif
