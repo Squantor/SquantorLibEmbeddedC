@@ -48,7 +48,7 @@ int dsCharReadBufMax;
 void mockDsCharReset()
 {
     dsCharWriteBufIdx = dsCharReadBufIdx = 0;
-    dsCharWriteBufMax = 0;
+    dsCharWriteBufMax = dsCharReadBufMax = 0;
     memset(dsCharWriteBuf, 0, sizeof(dsCharWriteBuf));
     memset(dsCharReadBuf, 0, sizeof(dsCharReadBuf));
 }

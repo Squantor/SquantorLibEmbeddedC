@@ -26,14 +26,15 @@ SOFTWARE.
 
 #include <queue_string.h>
 #include <results.h>
+#include <datastream.h>
 
 /* pass stringqueue to commandline prompt */
 void cmdlinePromptInit(t_queueString * q);
 /* 
-Call when you get a new character from your stdin and pass in c.
-When some characters need to be returned, these show up in rc, EOF if nothing is there.
+Every call the stream will be checked for a single character, if present it will be parsed.
+When some characters need to be returned, they will be output via stream.
 When a full commandline is input, calls cmdlineParse to interpret command.
 */
-result cmdlinePromptProcess(int c, int *rc, result (*cmdlineParse)(char *cmdline));
+result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(char *cmdline));
 
 #endif

@@ -28,6 +28,7 @@ SOFTWARE.
 #include <test_queue_string.h>
 #include <test_cmdprompt.h>
 #include <test_dswritechar.h>
+#include <test_dsreadchar.h>
 
 int minunitRun; /* tests run */
 int minunitFailures; /* tests failed */
@@ -57,9 +58,9 @@ int main() {
     // sort test modules on dependencies
     testParseAnsiSuite();
     testQueueStringSuite();
-    testCmdPromptSuite();
     testDsWriteCharSuite();
     testDsReadCharSuite();
+    testCmdPromptSuite();
     // print something if we have a failure
     if(minunitFailures != 0)
         println("Test failures occured!");

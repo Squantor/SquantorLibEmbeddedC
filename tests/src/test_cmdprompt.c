@@ -26,10 +26,38 @@ SOFTWARE.
 #include <sqMinUnitC.h>
 #include <test_cmdprompt.h>
 #include <cmdline_prompt.h>
+#include <mock_datastreamchar.h>
+
+char testCmdPromptStringBuffer[128];
+t_queueString testCmdPromptStringQueue = {
+    .len = 128-1,
+    .head = 0,
+    .tail = 0,
+    .data = testCmdPromptStringBuffer,
+    };
+
+result testCmdlineParse(char *cmdline)
+{
+    return noError;
+}
+
+int testCmdPromptLoop(int timeout)
+{
+    int counts = timeout;
+    result r;
+    do {
+        r = cmdlinePromptProcess(&testDsChar, testCmdlineParse);
+        counts--;
+    } while(r == noError && (counts > 0));
+    return counts;
+}
 
 static void testCmdPromptSetup(void) 
 {
-    
+    mockDsCharReset();
+    testCmdPromptStringQueue.head = 0;
+    testCmdPromptStringQueue.tail = 0;
+    cmdlinePromptInit(&testCmdPromptStringQueue);
 }
 
 static void testCmdPromptTeardown(void) 
@@ -37,15 +65,21 @@ static void testCmdPromptTeardown(void)
 
 }
 
-MU_TEST(testCmdPromptNormal) 
+MU_TEST(testCmdPromptEmpty) 
 {
+    mu_check(testCmdPromptLoop(10) == 9);
+}
 
+MU_TEST(testCmdPromptSingleCmdRetrieve) 
+{
+    
 }
 
 MU_TEST_SUITE(testCmdPrompt) 
 {
     MU_SUITE_CONFIGURE(&testCmdPromptSetup, &testCmdPromptTeardown);
-    MU_RUN_TEST(testCmdPromptNormal);
+    MU_RUN_TEST(testCmdPromptEmpty);
+    MU_RUN_TEST(testCmdPromptSingleCmdRetrieve);
 }
 
 void testCmdPromptSuite()
