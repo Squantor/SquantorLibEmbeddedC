@@ -73,6 +73,13 @@ result mockDsCharSetupRead(char *buf, size_t size)
     return noError;
 }
 
+result mockDsCharAdd(char *buf, size_t size)
+{
+    // check if end size is too big
+    // nope, copy over
+    
+    return noError;
+}
 
 result mockDsCharWrite(const char *c)
 {
