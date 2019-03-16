@@ -29,6 +29,7 @@ SOFTWARE.
 #include <parse_ansi.h>
 #include <queue_string.h>
 #include <cmdline.h>
+#include <datastream.h>
 
 #define ASCII_NUL   (0)
 #define ASCII_BS    (8)     // backspace
@@ -58,13 +59,13 @@ void cmdlinePromptInit(t_queueString * q)
 /*
  * Delete characters prompt and history
  */
-static void cmdlinePromptDel(uint16_t * promptBufIdx, uint16_t count)
+static void cmdlinePromptDel(datastreamChar_t *stream, uint16_t *promptBufIdx, uint16_t count)
 {
     for(uint16_t i = 0; i < count; i++)
     {
-        //sqputchar(ASCII_BS);
-        //sqputchar(ASCII_SPACE);
-        //sqputchar(ASCII_BS);  
+        dsWriteChar(ASCII_BS, stream);
+        dsWriteChar(ASCII_SPACE, stream);
+        dsWriteChar(ASCII_BS, stream); 
         (*promptBufIdx)--;
         if(*promptBufIdx == 0)
             return;
@@ -74,11 +75,11 @@ static void cmdlinePromptDel(uint16_t * promptBufIdx, uint16_t count)
 /*
  * Add character to prompt
  */
-static void cmdlinePromptAdd(char * promptBuf, uint16_t * promptBufIdx, char c)
+static void cmdlinePromptAdd(datastreamChar_t *stream, char *promptBuf, uint16_t *promptBufIdx, char c)
 {
     if(*promptBufIdx < CMDLINE_MAX_LENGTH-1)
     {
-        //sqputchar(c);
+        dsWriteChar(c, stream);
         promptBuf[*promptBufIdx] = c;
         (*promptBufIdx)++;
     }
@@ -87,11 +88,11 @@ static void cmdlinePromptAdd(char * promptBuf, uint16_t * promptBufIdx, char c)
 /*
  * Add character to prompt
  */
-static void cmdlinePromptAddString(char * promptBuf, uint16_t * promptBufIdx, char *s)
+static void cmdlinePromptAddString(datastreamChar_t *stream, char *promptBuf, uint16_t *promptBufIdx, char *s)
 {
     while(*s != ASCII_NUL)
     {
-        //sqputchar(*s);
+        dsWriteChar(*s, stream);
         promptBuf[*promptBufIdx] = *s;
         (*promptBufIdx)++;
         s++;
@@ -101,10 +102,16 @@ static void cmdlinePromptAddString(char * promptBuf, uint16_t * promptBufIdx, ch
 /*
  *  Prompt handler, call when new character is received
  */
-result cmdlinePromptProcess(int c, result (*cmdlineParse)(char *cmdline))
+result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(char *cmdline))
 {
     static char currentPrompt[CMDLINE_MAX_LENGTH];
     static promptState_t promptState = promptNormal;
+    char c;
+    result r = dsReadChar(&c, stream);
+    if(r != noError)
+    {
+        return r;
+    }
     
     // handling functions for escape sequences
     switch(promptState)
@@ -113,10 +120,10 @@ result cmdlinePromptProcess(int c, result (*cmdlineParse)(char *cmdline))
             switch(c)
             {
                 case ASCII_BS:
-                    cmdlinePromptDel(&currentPromptIndex, 1);
+                    cmdlinePromptDel(stream, &currentPromptIndex, 1);
                     break;
                 case ASCII_CR:
-                    //sqputchar(ASCII_CR);
+                    dsWriteChar(ASCII_CR, stream);
                     // terminate prompt string
                     currentPrompt[currentPromptIndex] = ASCII_NUL;
                     // add to history
@@ -135,7 +142,7 @@ result cmdlinePromptProcess(int c, result (*cmdlineParse)(char *cmdline))
                 case EOF:
                     break;
                 default:
-                    cmdlinePromptAdd(currentPrompt, &currentPromptIndex, c);
+                    cmdlinePromptAdd(stream, currentPrompt, &currentPromptIndex, c);
                     break;
             }
         break;
@@ -158,9 +165,9 @@ result cmdlinePromptProcess(int c, result (*cmdlineParse)(char *cmdline))
                             if(r == noError)
                             {
                                 // clear prompt
-                                cmdlinePromptDel(&currentPromptIndex, currentPromptIndex);
+                                cmdlinePromptDel(stream, &currentPromptIndex, currentPromptIndex);
                                 // add new prompt
-                                cmdlinePromptAddString(currentPrompt, &currentPromptIndex, currentHistory);
+                                cmdlinePromptAddString(stream, currentPrompt, &currentPromptIndex, currentHistory);
                             }
                             promptState = promptNormal;
                         break;
@@ -169,9 +176,9 @@ result cmdlinePromptProcess(int c, result (*cmdlineParse)(char *cmdline))
                             if(r == noError)
                             {
                                 // clear prompt
-                                cmdlinePromptDel(&currentPromptIndex, currentPromptIndex);
+                                cmdlinePromptDel(stream, &currentPromptIndex, currentPromptIndex);
                                 // add new prompt
-                                cmdlinePromptAddString(currentPrompt, &currentPromptIndex, currentHistory);
+                                cmdlinePromptAddString(stream, currentPrompt, &currentPromptIndex, currentHistory);
                             }
                             promptState = promptNormal;
                         break;
