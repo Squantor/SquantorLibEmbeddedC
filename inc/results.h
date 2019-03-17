@@ -32,7 +32,7 @@ extern "C" {
 typedef enum {
     noError = 0,
     error,
-    invalidArg,     // invalid (often NULL) argument passed, good case for hard assert
+    invalidArg,
     cmdlineNotFound,
     cmdlineInvalidArg,
     streamEOF,
@@ -40,13 +40,13 @@ typedef enum {
     streamEmtpy,
     flashUnknownId,
     flashInvalidAddr,
-    fileNotFound,	// could not find file
-    fileNoEntries,	// could not find free entry
-    fileNoSpace,	// insufficient free space
+    fileNotFound,
+    fileNoEntries,
+    fileNoSpace,
     queueFull,
     queueNotEmpty,
     queueEmpty,
-    dataInvalid,    // you passed data that is problematic
+    dataInvalid,
     resultEnd,
 } result;
 
