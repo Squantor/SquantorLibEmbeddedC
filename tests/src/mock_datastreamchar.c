@@ -63,6 +63,12 @@ result mockDsPutReads(char *buf, size_t size)
     return noError;
 }
 
+result mockDsPutReadsString(char *buf)
+{
+    size_t strSize = strlen(buf);
+    return mockDsPutReads(buf, strSize);
+}
+
 result mockDsGetWrites(char *buf, size_t size)
 {
     for(size_t i = 0; i < size; i++)

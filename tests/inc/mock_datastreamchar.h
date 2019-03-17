@@ -32,6 +32,8 @@ SOFTWARE.
 void mockDsCharReset();
 // set things to be read from stream
 result mockDsPutReads(char *buf, size_t size);
+// input a string to be read from stream, skips \0
+result mockDsPutReadsString(char *buf);
 // get things written to the stream
 result mockDsGetWrites(char *buf, size_t size);
 
