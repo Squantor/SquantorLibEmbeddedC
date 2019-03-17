@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqLibEmbeddedC" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/cmdline.h"/>
+    <File Name="inc/queue.h"/>
     <File Name="inc/parse_ansi.h"/>
     <File Name="inc/results.h"/>
     <File Name="inc/queue_string.h"/>
@@ -16,6 +23,7 @@
       <File Name="src/datastream/dswriteu8.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="queue">
+      <File Name="src/queue/queue.c"/>
       <File Name="src/queue/queue_string.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="cmdline">
@@ -25,11 +33,6 @@
       <File Name="src/ansi/parse_ansi.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Dynamic Library">

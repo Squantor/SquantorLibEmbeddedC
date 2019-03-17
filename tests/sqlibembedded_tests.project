@@ -6,6 +6,7 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_queue.h"/>
     <File Name="inc/test_dsreadchar.h"/>
     <File Name="inc/test_parse_ansi.h"/>
     <File Name="inc/test_queue_string.h"/>
@@ -21,6 +22,7 @@
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <File Name="src/test_queue.c"/>
     <File Name="src/test_dsreadchar.c"/>
     <File Name="src/test_dummy.c"/>
     <File Name="src/mock_datastreamchar.c"/>

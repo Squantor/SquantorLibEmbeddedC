@@ -23,48 +23,31 @@ SOFTWARE.
 */
 /*
 */
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
-#include <test_queue_string.h>
-#include <test_cmdprompt.h>
-#include <test_dswritechar.h>
-#include <test_dsreadchar.h>
+#include <sqMinUnitC.h>
+#include <test_queue.h>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
-
-int sysWrite( int f, const char* d, int l )
+static void testQueueSetup(void) 
 {
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
+    
 }
 
-int str_len( const char *string )
+static void testQueueTeardown(void) 
 {
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
+
 }
 
-void println( const char* string )
+MU_TEST(testQueueNormal) 
 {
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
+
 }
 
-int main() {
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    testQueueStringSuite();
-    testDsWriteCharSuite();
-    testDsReadCharSuite();
-    testQueueSuite();
-    testCmdPromptSuite();
-    if(minunitFailures != 0)
-        println("Test failures occured!");
-    else
-        println("All tests passed.");
-    return 0;
+MU_TEST_SUITE(testQueue) 
+{
+    MU_SUITE_CONFIGURE(&testQueueSetup, &testQueueTeardown);
+    MU_RUN_TEST(testQueueNormal);
+}
+
+void testQueueSuite()
+{
+    MU_RUN_SUITE(testQueue);
 }
