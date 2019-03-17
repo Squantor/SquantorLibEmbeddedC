@@ -31,7 +31,7 @@ SOFTWARE.
 
 char testCmdPromptStringBuffer[128];
 t_queueString testCmdPromptStringQueue = {
-    .len = 128,
+    .len = sizeof(testCmdPromptStringBuffer)-1,
     .head = 0,
     .tail = 0,
     .data = testCmdPromptStringBuffer,
@@ -64,6 +64,7 @@ static void testCmdPromptSetup(void)
     testCmdPromptStringQueue.head = 0;
     testCmdPromptStringQueue.tail = 0;
     testCmdlineParseCallCnt = 0;
+    memset(testCmdPromptStringBuffer, 0, sizeof(testCmdPromptStringBuffer));
     memset(testCmdlineParseString, 0, sizeof(testCmdlineParseString));
     cmdlinePromptInit(&testCmdPromptStringQueue);
 }
@@ -104,20 +105,61 @@ MU_TEST(testCmdPromptCmdLineEdit)
 MU_TEST(testCmdPromptCmdlineInput) 
 {
     char testcmd[] = "foo\r";
-    char testcmdexpect[11] = "foo";
+    char testcmdcall[] = "foo";
+    char testcmdoutput[] = "foo\r";
     char testcmdout[11];
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 5);
     mu_check(mockDsGetWrites(testcmdout, 4) == noError);
-    mu_check(memcmp(testcmdout, testcmdexpect, 3) == 0); 
+    mu_check(memcmp(testcmdout, testcmdoutput, 4) == 0); 
     mu_check(testCmdlineParseCallCnt == 1);
-    mu_check(strncmp(testcmdexpect, testCmdlineParseString, sizeof(testcmdout)) == 0);
+    mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
+}
+
+// input unhandled escape, should be empty
+MU_TEST(testCmdPromptCmdlineBadEsc)
+{
+    char testcmd[] = "\e_";
+    char testcmdout[11];
+    mockDsPutReadsString(testcmd);
+    mu_check(testCmdPromptLoop(10) == 7);
+    mu_check(mockDsGetWrites(testcmdout, 1) == queueEmpty);
+}
+
+// input previous command request, should be empty
+MU_TEST(testCmdPromptPreviousEmpty) 
+{
+    
+}
+
+// check if the command interpreter gets edited line
+MU_TEST(testCmdPromptCmdlineEditInput) 
+{
+    char testcmd[] = "fa\booo\b\r";
+    char testcmdcall[] = "foo";
+    char testcmdoutput[] = "fa\b \booo\b \b\r";
+    char testcmdout[15];
+    mockDsPutReadsString(testcmd);
+    mu_check(testCmdPromptLoop(10) == 1);
+    mu_check(mockDsGetWrites(testcmdout, 12) == noError);
+    mu_check(memcmp(testcmdout, testcmdoutput, 12) == 0); 
+    mu_check(testCmdlineParseCallCnt == 1);
+    mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
 }
 
 // check if we can get previous command
-MU_TEST(testCmdPromptCmdlineRetrieve) 
+MU_TEST(testCmdPromptRetrieve) 
 {
-    
+    char testcmd[] = "foo\r\e[A";
+    char testcmdcall[] = "foo";
+    char testcmdoutput[] = "foo\r";
+    char testcmdout[11];
+    mockDsPutReadsString(testcmd);
+    mu_check(testCmdPromptLoop(10) == 2);
+    mu_check(mockDsGetWrites(testcmdout, 4) == noError);
+    mu_check(memcmp(testcmdout, testcmdoutput, 4) == 0); 
+    mu_check(testCmdlineParseCallCnt == 1);
+    mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
 }
 
 MU_TEST_SUITE(testCmdPrompt) 
@@ -127,10 +169,10 @@ MU_TEST_SUITE(testCmdPrompt)
     MU_RUN_TEST(testCmdPromptCmdlineEcho);
     MU_RUN_TEST(testCmdPromptCmdLineEdit);
     MU_RUN_TEST(testCmdPromptCmdlineInput);
-    // line editing, check handler for correctness
-    // input unhandled escape, should be empty
-    // input previous command request, should be empty
-    MU_RUN_TEST(testCmdPromptCmdlineRetrieve);
+    MU_RUN_TEST(testCmdPromptCmdlineEditInput);
+    MU_RUN_TEST(testCmdPromptCmdlineBadEsc);
+    MU_RUN_TEST(testCmdPromptPreviousEmpty);
+    MU_RUN_TEST(testCmdPromptRetrieve);
     // see if we can fill buffer with commands and get last few commands
 }
 
