@@ -168,12 +168,15 @@ MU_TEST_SUITE(testCmdPrompt)
     MU_RUN_TEST(testCmdPromptEmpty);
     MU_RUN_TEST(testCmdPromptCmdlineEcho);
     MU_RUN_TEST(testCmdPromptCmdLineEdit);
+    // check what happens when we just press enter
     MU_RUN_TEST(testCmdPromptCmdlineInput);
     MU_RUN_TEST(testCmdPromptCmdlineEditInput);
     MU_RUN_TEST(testCmdPromptCmdlineBadEsc);
     MU_RUN_TEST(testCmdPromptPreviousEmpty);
     MU_RUN_TEST(testCmdPromptRetrieve);
-    // see if we can fill buffer with commands and get last few commands
+    // check if we can get a few previous commands until the end
+    // check if we can go up and down through history
+    // check if when we go up and down the boundary is handled properly
 }
 
 void testCmdPromptSuite()
