@@ -31,14 +31,19 @@ SOFTWARE.
 
 char testCmdPromptStringBuffer[128];
 t_queueString testCmdPromptStringQueue = {
-    .len = 128-1,
+    .len = 128,
     .head = 0,
     .tail = 0,
     .data = testCmdPromptStringBuffer,
     };
 
+char testCmdlineParseString[128];
+int testCmdlineParseCallCnt = 0;
+
 result testCmdlineParse(char *cmdline)
 {
+    strncpy(testCmdlineParseString, cmdline, sizeof(testCmdlineParseString));
+    testCmdlineParseCallCnt++;
     return noError;
 }
 
@@ -58,6 +63,8 @@ static void testCmdPromptSetup(void)
     mockDsCharReset();
     testCmdPromptStringQueue.head = 0;
     testCmdPromptStringQueue.tail = 0;
+    testCmdlineParseCallCnt = 0;
+    memset(testCmdlineParseString, 0, sizeof(testCmdlineParseString));
     cmdlinePromptInit(&testCmdPromptStringQueue);
 }
 
@@ -90,16 +97,24 @@ MU_TEST(testCmdPromptCmdLineEdit)
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 2);
     mu_check(mockDsGetWrites(testcmdout, sizeof(testcmdout)) == noError);
-    mu_check(memcmp(testcmdout, testcmdexpect, 11) == 0);    
+    mu_check(memcmp(testcmdout, testcmdexpect, 11) == 0);
 }
 
 // check if the command interpreter gets called
 MU_TEST(testCmdPromptCmdlineInput) 
 {
-    
+    char testcmd[] = "foo\r";
+    char testcmdexpect[11] = "foo";
+    char testcmdout[11];
+    mockDsPutReadsString(testcmd);
+    mu_check(testCmdPromptLoop(10) == 5);
+    mu_check(mockDsGetWrites(testcmdout, 4) == noError);
+    mu_check(memcmp(testcmdout, testcmdexpect, 3) == 0); 
+    mu_check(testCmdlineParseCallCnt == 1);
+    mu_check(strncmp(testcmdexpect, testCmdlineParseString, sizeof(testcmdout)) == 0);
 }
 
-// see if we can get previous command
+// check if we can get previous command
 MU_TEST(testCmdPromptCmdlineRetrieve) 
 {
     
