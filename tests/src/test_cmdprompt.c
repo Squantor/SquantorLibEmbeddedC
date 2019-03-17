@@ -77,27 +77,40 @@ MU_TEST(testCmdPromptCmdlineEcho)
     char testcmd[] = "foo";
     char testoutput[3] = "baz";
     mockDsPutReadsString(testcmd);
-    mu_check(testCmdPromptLoop(3) == 0);
+    mu_check(testCmdPromptLoop(10) == 6);
     mu_check(mockDsGetWrites(testoutput, sizeof(testoutput)) == noError);
     mu_check(memcmp(testcmd, testoutput, 3) == 0);
 }
+// check line editing
+MU_TEST(testCmdPromptCmdLineEdit)
+{
+    char testcmd[] = "fa\booo\b";
+    char testcmdexpect[11] = "fa\b \booo\b \b";
+    char testcmdout[11];
+    mockDsPutReadsString(testcmd);
+    mu_check(testCmdPromptLoop(10) == 2);
+    mu_check(mockDsGetWrites(testcmdout, sizeof(testcmdout)) == noError);
+    mu_check(memcmp(testcmdout, testcmdexpect, 11) == 0);    
+}
 
 // check if the command interpreter gets called
-MU_TEST(testCmdPromptCmdlineInput) {}
+MU_TEST(testCmdPromptCmdlineInput) 
+{
+    
+}
 
 // see if we can get previous command
-MU_TEST(testCmdPromptCmdlineRetrieve) {}
-
-
-
-
+MU_TEST(testCmdPromptCmdlineRetrieve) 
+{
+    
+}
 
 MU_TEST_SUITE(testCmdPrompt) 
 {
     MU_SUITE_CONFIGURE(&testCmdPromptSetup, &testCmdPromptTeardown);
     MU_RUN_TEST(testCmdPromptEmpty);
     MU_RUN_TEST(testCmdPromptCmdlineEcho);
-    // line editing, make handler for that in the mock
+    MU_RUN_TEST(testCmdPromptCmdLineEdit);
     MU_RUN_TEST(testCmdPromptCmdlineInput);
     // line editing, check handler for correctness
     // input unhandled escape, should be empty
