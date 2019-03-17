@@ -80,6 +80,11 @@ result mockDsGetWrites(char *buf, size_t size)
     return noError;
 }
 
+result mockDsGetWriteStatus(void)
+{
+    return queueCharState(&writeQueue);
+}
+
 
 result mockDsCharWrite(const char *c)
 {

@@ -126,6 +126,10 @@ result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(cha
                     dsWriteChar(ASCII_CR, stream);
                     // terminate prompt string
                     currentPrompt[currentPromptIndex] = ASCII_NUL;
+                    // check length
+                    if(strlen(currentPrompt) == 0)
+                        // zero length string, do nothing
+                        return noError;
                     // add to history
                     queueStringEnqueue(commandHistory, currentPrompt);
                     // execute

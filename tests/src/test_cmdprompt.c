@@ -98,7 +98,21 @@ MU_TEST(testCmdPromptCmdLineEdit)
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 2);
     mu_check(mockDsGetWrites(testcmdout, sizeof(testcmdout)) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testcmdout, testcmdexpect, 11) == 0);
+}
+
+// check what happens when we just press enter
+MU_TEST(testCmdPromptCmdlineInputEmpty) 
+{
+    char testcmd[] = "\r";
+    char testcmdoutput[] = "\r";
+    char testcmdout[11];
+    mockDsPutReadsString(testcmd);
+    mu_check(testCmdPromptLoop(1) == 0);
+    mu_check(mockDsGetWrites(testcmdout, 1) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testcmdout, testcmdoutput, 1) == 0); 
 }
 
 // check if the command interpreter gets called
@@ -168,7 +182,7 @@ MU_TEST_SUITE(testCmdPrompt)
     MU_RUN_TEST(testCmdPromptEmpty);
     MU_RUN_TEST(testCmdPromptCmdlineEcho);
     MU_RUN_TEST(testCmdPromptCmdLineEdit);
-    // check what happens when we just press enter
+    MU_RUN_TEST(testCmdPromptCmdlineInputEmpty);
     MU_RUN_TEST(testCmdPromptCmdlineInput);
     MU_RUN_TEST(testCmdPromptCmdlineEditInput);
     MU_RUN_TEST(testCmdPromptCmdlineBadEsc);

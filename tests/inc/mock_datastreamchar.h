@@ -36,6 +36,7 @@ result mockDsPutReads(char *buf, size_t size);
 result mockDsPutReadsString(char *buf);
 // get things written to the stream
 result mockDsGetWrites(char *buf, size_t size);
+result mockDsGetWriteStatus(void);
 
 extern datastreamChar_t testDsChar;
 
