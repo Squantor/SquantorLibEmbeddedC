@@ -181,6 +181,12 @@ MU_TEST(testCmdPromptRetrieve)
 // check if we can get a few previous commands until the end
 MU_TEST(testCmdPromptRetrieveMulti) 
 {
+   
+}
+
+// check if we can go up and down through history
+MU_TEST(testCmdPromptRetrieveForBack) 
+{
     char testcmd[] = "baz\r";
     char testUp[] = "\e[A";
     char testDown[] = "\e[B";
@@ -192,7 +198,8 @@ MU_TEST(testCmdPromptRetrieveMulti)
         mu_check(testCmdPromptLoop(4) == 0);
         mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
         mu_check(mockDsGetWriteStatus() == queueEmpty);
-        mu_check(memcmp(testcmd, testcmdoutput, 4) == 0); 
+        mu_check(memcmp(testcmd, testcmdoutput, 4) == 0);
+        // TODO: check how many times commandhandler is called
     }
     // go back in history
     for(int i = 0; i < 6; i++)
@@ -202,20 +209,10 @@ MU_TEST(testCmdPromptRetrieveMulti)
         mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
         mu_check(mockDsGetWriteStatus() == queueEmpty);        
     }
-    // go forward in history
+    // TODO go forward in history
     
-    // again so we cross end of buffer
-    for(int i = 0; i < 6; i++)
-    {
-        
-    }
-    
-}
+    // TODO again so we cross end of buffer
 
-// check if we can go up and down through history
-MU_TEST(testCmdPromptRetrieveForBack) 
-{
-    // make sure we pass the boundary
 }
 
 MU_TEST_SUITE(testCmdPrompt) 
