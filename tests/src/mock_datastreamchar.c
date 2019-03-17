@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include <datastream.h>
 #include <string.h>
+#include <queue.h>
 
 #define MOCKDSCHARBUFSIZE   128
 
@@ -38,63 +39,60 @@ datastreamChar_t testDsChar =
     testDsCharName,
 };
 
+// data queue written by the DUT
 char dsCharWriteBuf[MOCKDSCHARBUFSIZE];
-int dsCharWriteBufIdx;
-int dsCharWriteBufMax;
+t_queueChar writeQueue = {MOCKDSCHARBUFSIZE, 0, 0, dsCharWriteBuf};
+// data queue read by the DUT
 char dsCharReadBuf[MOCKDSCHARBUFSIZE];
-int dsCharReadBufIdx;
-int dsCharReadBufMax;
+t_queueChar readQueue = {MOCKDSCHARBUFSIZE, 0, 0, dsCharReadBuf};
 
 void mockDsCharReset()
 {
-    dsCharWriteBufIdx = dsCharReadBufIdx = 0;
-    dsCharWriteBufMax = dsCharReadBufMax = 0;
-    memset(dsCharWriteBuf, 0, sizeof(dsCharWriteBuf));
-    memset(dsCharReadBuf, 0, sizeof(dsCharReadBuf));
+    queueCharInit(&writeQueue);
+    queueCharInit(&readQueue);
 }
 
-result mockDsCharSetupWrite(int maxWrites)
+result mockDsPutReads(char *buf, size_t size)
 {
-    if(maxWrites < MOCKDSCHARBUFSIZE)
+    for(size_t i = 0; i < size; i++)
     {
-        dsCharWriteBufMax = maxWrites;
-        return noError;
+        result r = queueCharEnqueue(&readQueue, buf[i]);
+        if(r != noError)
+            return r;
     }
-    else
-        return error;
-}
-
-result mockDsCharSetupRead(char *buf, size_t size)
-{
-    if(size > MOCKDSCHARBUFSIZE)
-        return error;
-    memcpy(dsCharReadBuf, buf, size);
-    dsCharReadBufMax = (int) size;
     return noError;
 }
 
-result mockDsCharAdd(char *buf, size_t size)
+result mockDsGetWrites(char *buf, size_t size)
 {
-    // check if end size is too big
-    // nope, copy over
-    
+    for(size_t i = 0; i < size; i++)
+    {
+        result r = queueCharDequeue(&writeQueue, &buf[i]);
+        if(r != noError)
+            return r;
+    }
     return noError;
 }
+
 
 result mockDsCharWrite(const char *c)
 {
-    if(dsCharWriteBufIdx == dsCharWriteBufMax)
+    result r = queueCharEnqueue(&writeQueue, *c);
+    if(r == queueFull)
         return streamFull;
-    dsCharWriteBuf[dsCharWriteBufIdx] = *c;
-    dsCharWriteBufIdx++;
-    return noError;
+    else if(r == noError)
+        return noError;
+    else
+        return r;
 }
 
 result mockDsCharRead(char *c)
 {
-    if(dsCharReadBufIdx == dsCharReadBufMax)
+    result r = queueCharDequeue(&readQueue, c);
+    if(r == queueEmpty)
         return streamEmtpy;
-    *c = dsCharReadBuf[dsCharReadBufIdx];
-    dsCharReadBufIdx++;
-    return noError;
+    else if(r == noError)
+        return noError;
+    else
+        return r;
 }

@@ -30,8 +30,10 @@ SOFTWARE.
 #define BADCHAR     12
 
 void mockDsCharReset();
-result mockDsCharSetupWrite(int maxWrites);
-result mockDsCharSetupRead(char *buf, size_t size);
+// set things to be read from stream
+result mockDsPutReads(char *buf, size_t size);
+// get things written to the stream
+result mockDsGetWrites(char *buf, size_t size);
 
 extern datastreamChar_t testDsChar;
 

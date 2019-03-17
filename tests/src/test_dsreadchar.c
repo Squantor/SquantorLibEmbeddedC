@@ -43,7 +43,7 @@ static void testDsReadCharTeardown(void)
 MU_TEST(testDsReadCharNormal) 
 {
     char c;
-    mu_check(mockDsCharSetupRead(testabc, sizeof(testabc)) == noError);
+    mu_check(mockDsPutReads(testabc, sizeof(testabc)) == noError);
     mu_check(dsReadChar(&c, &testDsChar) == noError);
     mu_check(c == 'a');
     mu_check(dsReadChar(&c, &testDsChar) == noError);

@@ -58,10 +58,10 @@ void println( const char* string )
 int main() {
     // sort test modules on dependencies
     testParseAnsiSuite();
+    testQueueSuite();
     testQueueStringSuite();
     testDsWriteCharSuite();
     testDsReadCharSuite();
-    testQueueSuite();
     testCmdPromptSuite();
     if(minunitFailures != 0)
         println("Test failures occured!");
