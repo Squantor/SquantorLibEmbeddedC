@@ -29,6 +29,7 @@ SOFTWARE.
 #include <test_cmdprompt.h>
 #include <test_dswritechar.h>
 #include <test_dsreadchar.h>
+#include <test_queue.h>
 
 int minunitRun; /* tests run */
 int minunitFailures; /* tests failed */

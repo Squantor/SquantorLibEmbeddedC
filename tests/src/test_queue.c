@@ -25,10 +25,20 @@ SOFTWARE.
 */
 #include <sqMinUnitC.h>
 #include <test_queue.h>
+#include <queue.h>
+
+#define TESTQUEUECHARSIZE   6
+char testQueueCharBuf[TESTQUEUECHARSIZE];
+t_queueChar testQueueChar = {
+    TESTQUEUECHARSIZE,
+    0,
+    0,
+    testQueueCharBuf,
+    };
 
 static void testQueueSetup(void) 
 {
-    
+    queueCharInit(&testQueueChar);
 }
 
 static void testQueueTeardown(void) 
@@ -36,15 +46,47 @@ static void testQueueTeardown(void)
 
 }
 
-MU_TEST(testQueueNormal) 
+MU_TEST(testQueueEmpty) 
 {
+    char c;
+    mu_check(queueCharDequeue(&testQueueChar, &c) == queueEmpty);
+}
 
+MU_TEST(testQueueEnqDeq) 
+{
+    char in = 'a';
+    char out = 'q';
+    for(int i = 0; i < TESTQUEUECHARSIZE-1; i++)
+    {
+        mu_check(queueCharEnqueue(&testQueueChar, in + i) == noError);
+    }
+    mu_check(queueCharState(&testQueueChar) == queueFull);
+    mu_check(queueCharEnqueue(&testQueueChar, in) == queueFull);
+    
+    for(int i = 0; i < TESTQUEUECHARSIZE-1; i++)
+    {
+        mu_check(queueCharDequeue(&testQueueChar, &out) == noError);
+        mu_check(out == in + i);
+    }
+    mu_check(queueCharDequeue(&testQueueChar, &out) == queueEmpty);
+    // check if out has been unmodified
+    mu_check(out == in + TESTQUEUECHARSIZE-2);
+    
+    // We do again a test, but now we will cross the max boundary
+    mu_check(queueCharState(&testQueueChar) == queueEmpty);
+    mu_check(queueCharEnqueue(&testQueueChar, in) == noError);
+    mu_check(queueCharState(&testQueueChar) == queueNotEmpty);
+    mu_check(queueCharDequeue(&testQueueChar, &out) == noError);   
+    mu_check(queueCharState(&testQueueChar) == queueEmpty); 
+    mu_check(queueCharDequeue(&testQueueChar, &out) == queueEmpty);
+    mu_check(out == in);    
 }
 
 MU_TEST_SUITE(testQueue) 
 {
     MU_SUITE_CONFIGURE(&testQueueSetup, &testQueueTeardown);
-    MU_RUN_TEST(testQueueNormal);
+    MU_RUN_TEST(testQueueEmpty);
+    MU_RUN_TEST(testQueueEnqDeq);
 }
 
 void testQueueSuite()

@@ -55,6 +55,6 @@ result queueCharDequeue(t_queueChar *queue, char *p)
     if(queue->head == queue->tail)                                    \
         return queueEmpty;                                                      \
     *p = queue->buf[queue->tail];                                    \
-    queue->tail = (queue->tail+1) & queue->max;                             \
+    queue->tail = (queue->tail+1) % queue->max;                             \
     return noError;    
 }

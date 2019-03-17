@@ -28,6 +28,13 @@ SOFTWARE.
 
 typedef struct {
     const int max;
+    /* 
+    we differentiate between full and empty by the conditions:
+    tail == head : empty,
+    tail+1 == head : full
+    due to this, we always have one element unused.
+    Head and tail are always bounded by max
+    */
     int head;
     int tail;
     char * const buf;
