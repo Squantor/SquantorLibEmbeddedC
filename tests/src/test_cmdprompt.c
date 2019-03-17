@@ -29,7 +29,7 @@ SOFTWARE.
 #include <cmdline_prompt.h>
 #include <mock_datastreamchar.h>
 
-char testCmdPromptStringBuffer[128];
+char testCmdPromptStringBuffer[32];
 t_queueString testCmdPromptStringQueue = {
     .len = sizeof(testCmdPromptStringBuffer)-1,
     .head = 0,
@@ -125,6 +125,7 @@ MU_TEST(testCmdPromptCmdlineInput)
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 5);
     mu_check(mockDsGetWrites(testcmdout, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testcmdout, testcmdoutput, 4) == 0); 
     mu_check(testCmdlineParseCallCnt == 1);
     mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
@@ -134,10 +135,9 @@ MU_TEST(testCmdPromptCmdlineInput)
 MU_TEST(testCmdPromptCmdlineBadEsc)
 {
     char testcmd[] = "\e_";
-    char testcmdout[11];
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 7);
-    mu_check(mockDsGetWrites(testcmdout, 1) == queueEmpty);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
 }
 
 // input previous command request, should be empty
@@ -156,6 +156,7 @@ MU_TEST(testCmdPromptCmdlineEditInput)
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 1);
     mu_check(mockDsGetWrites(testcmdout, 12) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testcmdout, testcmdoutput, 12) == 0); 
     mu_check(testCmdlineParseCallCnt == 1);
     mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
@@ -171,9 +172,50 @@ MU_TEST(testCmdPromptRetrieve)
     mockDsPutReadsString(testcmd);
     mu_check(testCmdPromptLoop(10) == 2);
     mu_check(mockDsGetWrites(testcmdout, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testcmdout, testcmdoutput, 4) == 0); 
     mu_check(testCmdlineParseCallCnt == 1);
     mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
+}
+
+// check if we can get a few previous commands until the end
+MU_TEST(testCmdPromptRetrieveMulti) 
+{
+    char testcmd[] = "baz\r";
+    char testUp[] = "\e[A";
+    char testDown[] = "\e[B";
+    char testcmdoutput[11];
+    // fill history
+    for(int i = 0; i < 6; i++)
+    {
+        mockDsPutReadsString(testcmd);
+        mu_check(testCmdPromptLoop(4) == 0);
+        mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
+        mu_check(mockDsGetWriteStatus() == queueEmpty);
+        mu_check(memcmp(testcmd, testcmdoutput, 4) == 0); 
+    }
+    // go back in history
+    for(int i = 0; i < 6; i++)
+    {
+        mockDsPutReadsString(testUp);
+        mu_check(testCmdPromptLoop(3) == 0);
+        mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
+        mu_check(mockDsGetWriteStatus() == queueEmpty);        
+    }
+    // go forward in history
+    
+    // again so we cross end of buffer
+    for(int i = 0; i < 6; i++)
+    {
+        
+    }
+    
+}
+
+// check if we can go up and down through history
+MU_TEST(testCmdPromptRetrieveForBack) 
+{
+    // make sure we pass the boundary
 }
 
 MU_TEST_SUITE(testCmdPrompt) 
@@ -188,9 +230,8 @@ MU_TEST_SUITE(testCmdPrompt)
     MU_RUN_TEST(testCmdPromptCmdlineBadEsc);
     MU_RUN_TEST(testCmdPromptPreviousEmpty);
     MU_RUN_TEST(testCmdPromptRetrieve);
-    // check if we can get a few previous commands until the end
-    // check if we can go up and down through history
-    // check if when we go up and down the boundary is handled properly
+    MU_RUN_TEST(testCmdPromptRetrieveMulti);
+    MU_RUN_TEST(testCmdPromptRetrieveForBack);
 }
 
 void testCmdPromptSuite()
