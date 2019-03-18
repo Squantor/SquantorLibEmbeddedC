@@ -48,6 +48,8 @@ t_queueChar readQueue = {MOCKDSCHARBUFSIZE, 0, 0, dsCharReadBuf};
 
 void mockDsCharReset()
 {
+    memset(dsCharWriteBuf, 0, sizeof(dsCharWriteBuf));
+    memset(dsCharReadBuf, 0, sizeof(dsCharReadBuf));
     queueCharInit(&writeQueue);
     queueCharInit(&readQueue);
 }

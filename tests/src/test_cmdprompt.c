@@ -167,11 +167,11 @@ MU_TEST(testCmdPromptRetrieve)
 {
     char testcmd[] = "foo\r\e[A";
     char testcmdcall[] = "foo";
-    char testcmdoutput[] = "foo\r";
+    char testcmdoutput[] = "foo\rfoo";
     char testcmdout[11];
     mockDsPutReadsString(testcmd);
-    mu_check(testCmdPromptLoop(10) == 2);
-    mu_check(mockDsGetWrites(testcmdout, 4) == noError);
+    mu_check(testCmdPromptLoop(7) == 0);
+    mu_check(mockDsGetWrites(testcmdout, 7) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testcmdout, testcmdoutput, 4) == 0); 
     mu_check(testCmdlineParseCallCnt == 1);
@@ -187,31 +187,61 @@ MU_TEST(testCmdPromptRetrieveMulti)
 // check if we can go up and down through history
 MU_TEST(testCmdPromptRetrieveForBack) 
 {
-    char testcmd[] = "baz\r";
+    char testcmd[] = "bazz\r";
+    char testcmdBackspace[] = "\b \b\b \b\b \b\b \bbazz";
     char testUp[] = "\e[A";
     char testDown[] = "\e[B";
-    char testcmdoutput[11];
-    // fill history
-    for(int i = 0; i < 6; i++)
+    char testcmdoutput[20];
+    // fill history while crossing boundaries
+    for(int i = 0; i < 8; i++)
     {
         mockDsPutReadsString(testcmd);
-        mu_check(testCmdPromptLoop(4) == 0);
-        mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
+        mu_check(testCmdPromptLoop(5) == 0);
+        mu_check(mockDsGetWrites(testcmdoutput, 5) == noError);
         mu_check(mockDsGetWriteStatus() == queueEmpty);
         mu_check(memcmp(testcmd, testcmdoutput, 4) == 0);
-        // TODO: check how many times commandhandler is called
+        mu_check(testCmdlineParseCallCnt == i+1);
     }
-    // go back in history
-    for(int i = 0; i < 6; i++)
+    
+    // last command on empty prompt is different
+    mockDsPutReadsString(testUp);
+    mu_check(testCmdPromptLoop(3) == 0);
+    mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testcmd, testcmdoutput, 4) == 0);
+    mu_check(testCmdlineParseCallCnt == 8);    
+    
+    // go back in history with a full prompt, go until the end
+    for(int i = 0; i < 4; i++)
     {
         mockDsPutReadsString(testUp);
         mu_check(testCmdPromptLoop(3) == 0);
-        mu_check(mockDsGetWrites(testcmdoutput, 4) == noError);
-        mu_check(mockDsGetWriteStatus() == queueEmpty);        
+        mu_check(mockDsGetWrites(testcmdoutput, 16) == noError);
+        mu_check(mockDsGetWriteStatus() == queueEmpty);
+        mu_check(memcmp(testcmdBackspace, testcmdoutput, 16) == 0);
+        mu_check(testCmdlineParseCallCnt == 8);
     }
-    // TODO go forward in history
     
-    // TODO again so we cross end of buffer
+    // empty response check
+    mockDsPutReadsString(testUp);
+    mu_check(testCmdPromptLoop(3) == 0);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    
+    // go forward in history
+    for(int i = 0; i < 4; i++)
+    {
+        mockDsPutReadsString(testDown);
+        mu_check(testCmdPromptLoop(3) == 0);
+        mu_check(mockDsGetWrites(testcmdoutput, 16) == noError);
+        mu_check(mockDsGetWriteStatus() == queueEmpty);
+        mu_check(memcmp(testcmdBackspace, testcmdoutput, 16) == 0);
+        mu_check(testCmdlineParseCallCnt == 8);   
+    }
+    
+    // empty response check
+    mockDsPutReadsString(testDown);
+    mu_check(testCmdPromptLoop(3) == 0);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
 
 }
 

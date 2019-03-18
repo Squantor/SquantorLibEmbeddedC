@@ -40,9 +40,14 @@ static uint16_t SeekForwardSep(t_queueString * queue, uint16_t idx)
 // search forward for not seperator
 static uint16_t SeekForwardNotSep(t_queueString * queue, uint16_t idx)
 {
-    while(queue->data[idx] == 0)
-        idx = WRAP(idx + 1, queue->len);
-    return idx;
+    uint16_t newIndex = idx;
+    while(queue->data[newIndex] == 0)
+    {
+        newIndex = WRAP(newIndex + 1, queue->len);
+        if(newIndex == queue->head)
+            return idx;
+    }
+    return newIndex;
 }
 
 // search backward for seperator
@@ -159,7 +164,7 @@ result queueStringNext(t_queueString * queue, uint16_t * i, char * s)
     uint16_t indexNew = *i;
     indexNew = SeekForwardSep(queue, indexNew);
     // point to begin of string
-    indexNew = WRAP(indexNew + 1, queue->len);
+    indexNew = SeekForwardNotSep(queue, indexNew);
     if(queue->head == indexNew)
     {
         return queueEmpty;
