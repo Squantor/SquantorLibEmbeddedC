@@ -44,8 +44,9 @@ static uint16_t SeekForwardNotSep(t_queueString * queue, uint16_t idx)
     while(queue->data[newIndex] == 0)
     {
         newIndex = WRAP(newIndex + 1, queue->len);
+        // if we are equal to tail, then we are empty, return
         if(newIndex == queue->head)
-            return idx;
+            return newIndex;
     }
     return newIndex;
 }
@@ -92,8 +93,8 @@ result queueStringEnqueue(t_queueString *queue, char * s)
         memset(&(queue->data[queue->head]), 0, queue->len - queue->head);
         // reset head to 0
         newHead = 0;
-        // did we overtake the tail?
-        if((queue->head + stringSize) > queue->tail)
+        // did we overtake the tail? (also take into account tail is zero)
+        if(queue->head < queue->tail || queue->tail == newHead)
             // put tail beyond so overtake will detect it
             queue->tail = stringSize;
     }
@@ -106,12 +107,12 @@ result queueStringEnqueue(t_queueString *queue, char * s)
     // will the new head overtake the tail?
     if((newHead < queue->tail) && (queue->tail <= (newHead + stringSize)))
     {
-        // yes, search new place for head
+        // yes, search new place for tail
         uint16_t newtail = newHead + stringSize;
         newtail = SeekForwardSep(queue, newtail);
         queue->tail = SeekForwardNotSep(queue, newtail);
     }
-    
+    // we made some space at newHead, overwrite
     strcpy(&(queue->data[newHead]), s);
     // point to next space
     queue->head = newHead + stringSize;
@@ -133,7 +134,8 @@ result queueStringDequeue(t_queueString *queue, char * s)
         *s = queue->data[newtail];
         newtail++; s++;
     }
-    *s = 0;
+    *s = 0; 
+    newtail++;
     newtail = SeekForwardNotSep(queue, newtail);
     queue->tail = newtail;
     return noError;

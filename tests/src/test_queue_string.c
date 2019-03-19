@@ -66,12 +66,12 @@ MU_TEST(testEnqueueDequeueOverwrite)
     char stringDummy[16] = "Dummy";
     char stringOutput[32];
     // add so many strings you overflow the buffer a few times
-    for(int i = 0; i < 200; i++)
+    for(int i = 0; i < 50; i++)
     {
         mu_check(queueStringEnqueue(&testQueue, stringDummy) == noError);
     }
     
-    for(int i = 170; i < 190; i++)
+    for(int i = 0; i < 20; i++)
     {
         mu_check(queueStringDequeue(&testQueue, stringOutput) == noError);
         mu_check(strcmp(stringDummy, stringOutput) == 0); 
@@ -107,14 +107,14 @@ MU_TEST(testGetNext)
     // First half fill
     for(int i = 0; i < 10; i++)
     {
-        queueStringEnqueue(&testQueue, stringTest);
+        mu_check(queueStringEnqueue(&testQueue, stringTest) == noError);
     }
     
     // move down
     idx = testQueue.head;
     for(int i = 0; i < 10; i++)
     {
-        queueStringPrev(&testQueue, &idx, stringOutput);
+        mu_check(queueStringPrev(&testQueue, &idx, stringOutput) == noError);
     }
     mu_check(queueStringPrev(&testQueue, &idx, stringOutput) == queueEmpty);
     // move up
