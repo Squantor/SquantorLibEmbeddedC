@@ -178,12 +178,6 @@ MU_TEST(testCmdPromptRetrieve)
     mu_check(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
 }
 
-// check if we can get a few previous commands until the end
-MU_TEST(testCmdPromptRetrieveMulti) 
-{
-   
-}
-
 // check if we can go up and down through history
 MU_TEST(testCmdPromptRetrieveForBack) 
 {
@@ -256,7 +250,6 @@ MU_TEST_SUITE(testCmdPrompt)
     MU_RUN_TEST(testCmdPromptCmdlineBadEsc);
     MU_RUN_TEST(testCmdPromptPreviousEmpty);
     MU_RUN_TEST(testCmdPromptRetrieve);
-    MU_RUN_TEST(testCmdPromptRetrieveMulti);
     MU_RUN_TEST(testCmdPromptRetrieveForBack);
 }
 
