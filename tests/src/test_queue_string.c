@@ -120,7 +120,7 @@ MU_TEST(testGetNext)
     // move up
     for(int i = 0; i < 10; i++)
     {
-        queueStringNext(&testQueue, &idx, stringOutput);
+        mu_check(queueStringNext(&testQueue, &idx, stringOutput) == noError);
         mu_check(strcmp(stringTest, stringOutput) == 0);
     }
     mu_check(queueStringNext(&testQueue, &idx, stringOutput) == queueEmpty);

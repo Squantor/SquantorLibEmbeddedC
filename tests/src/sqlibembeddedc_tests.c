@@ -55,7 +55,8 @@ void println( const char* string )
    sysWrite( 1, "\n", 1 );
 }
 
-int main() {
+int main() 
+{
     // sort test modules on dependencies
     testParseAnsiSuite();
     testQueueSuite();

@@ -163,16 +163,13 @@ result queueStringNext(t_queueString * queue, uint16_t * i, char * s)
         return invalidArg;
     if((queue->head == queue->tail) || (queue->head == *i))
         return queueEmpty;
+    // we are sure that something is at *i, return it
+    strcpy(s, &(queue->data[*i]));
+    // now that we copied it, find new index
     uint16_t indexNew = *i;
     indexNew = SeekForwardSep(queue, indexNew);
     // point to begin of string
     indexNew = SeekForwardNotSep(queue, indexNew);
-    if(queue->head == indexNew)
-    {
-        return queueEmpty;
-    }
-    // copy over string to s
-    strcpy(s, &(queue->data[indexNew]));
     *i = indexNew;
     return noError;
 }

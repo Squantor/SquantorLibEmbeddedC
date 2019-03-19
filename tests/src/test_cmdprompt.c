@@ -228,7 +228,7 @@ MU_TEST(testCmdPromptRetrieveForBack)
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     
     // go forward in history
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 5; i++)
     {
         mockDsPutReadsString(testDown);
         mu_check(testCmdPromptLoop(3) == 0);
@@ -242,7 +242,6 @@ MU_TEST(testCmdPromptRetrieveForBack)
     mockDsPutReadsString(testDown);
     mu_check(testCmdPromptLoop(3) == 0);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
-
 }
 
 MU_TEST_SUITE(testCmdPrompt) 
