@@ -29,7 +29,7 @@ SOFTWARE.
 
 #define TESTQUEUECHARSIZE   6
 char testQueueCharBuf[TESTQUEUECHARSIZE];
-t_queueChar testQueueChar = {
+queueChar_t testQueueChar = {
     TESTQUEUECHARSIZE,
     0,
     0,
@@ -38,7 +38,7 @@ t_queueChar testQueueChar = {
 
 static void testQueueSetup(void) 
 {
-    queueCharInit(&testQueueChar);
+    queueInit(&testQueueChar);
 }
 
 static void testQueueTeardown(void) 
@@ -49,7 +49,7 @@ static void testQueueTeardown(void)
 MU_TEST(testQueueEmpty) 
 {
     char c;
-    mu_check(queueCharDequeue(&testQueueChar, &c) == queueEmpty);
+    mu_check(queueDequeue(&testQueueChar, &c) == queueEmpty);
 }
 
 MU_TEST(testQueueEnqDeq) 
@@ -58,27 +58,27 @@ MU_TEST(testQueueEnqDeq)
     char out = 'q';
     for(int i = 0; i < TESTQUEUECHARSIZE-1; i++)
     {
-        mu_check(queueCharEnqueue(&testQueueChar, in + i) == noError);
+        mu_check(queueEnqueue(&testQueueChar, in + i) == noError);
     }
-    mu_check(queueCharState(&testQueueChar) == queueFull);
-    mu_check(queueCharEnqueue(&testQueueChar, in) == queueFull);
+    mu_check(queueState(&testQueueChar) == queueFull);
+    mu_check(queueEnqueue(&testQueueChar, in) == queueFull);
     
     for(int i = 0; i < TESTQUEUECHARSIZE-1; i++)
     {
-        mu_check(queueCharDequeue(&testQueueChar, &out) == noError);
+        mu_check(queueDequeue(&testQueueChar, &out) == noError);
         mu_check(out == in + i);
     }
-    mu_check(queueCharDequeue(&testQueueChar, &out) == queueEmpty);
+    mu_check(queueDequeue(&testQueueChar, &out) == queueEmpty);
     // check if out has been unmodified
     mu_check(out == in + TESTQUEUECHARSIZE-2);
     
     // We do again a test, but now we will cross the max boundary
-    mu_check(queueCharState(&testQueueChar) == queueEmpty);
-    mu_check(queueCharEnqueue(&testQueueChar, in) == noError);
-    mu_check(queueCharState(&testQueueChar) == queueNotEmpty);
-    mu_check(queueCharDequeue(&testQueueChar, &out) == noError);   
-    mu_check(queueCharState(&testQueueChar) == queueEmpty); 
-    mu_check(queueCharDequeue(&testQueueChar, &out) == queueEmpty);
+    mu_check(queueState(&testQueueChar) == queueEmpty);
+    mu_check(queueEnqueue(&testQueueChar, in) == noError);
+    mu_check(queueState(&testQueueChar) == queueNotEmpty);
+    mu_check(queueDequeue(&testQueueChar, &out) == noError);   
+    mu_check(queueState(&testQueueChar) == queueEmpty); 
+    mu_check(queueDequeue(&testQueueChar, &out) == queueEmpty);
     mu_check(out == in);    
 }
 

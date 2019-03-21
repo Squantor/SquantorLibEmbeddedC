@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqlibembedded_tests" Version="10.0.0" InternalType="">
+  <VirtualDirectory Name="src">
+    <File Name="src/test_queue_char.c"/>
+    <File Name="src/test_dummy.c"/>
+    <File Name="src/mock_datastreamchar.c"/>
+    <File Name="src/test_dswritechar.c"/>
+    <File Name="src/test_cmdprompt.c"/>
+    <File Name="src/test_dsreadchar.c"/>
+    <File Name="src/test_queue_string.c"/>
+    <File Name="src/sqlibembeddedc_tests.c"/>
+    <File Name="src/test_parse_ansi.c"/>
+    <VirtualDirectory Name="rt0">
+      <File Name="src/rt0/00_start.c"/>
+      <File Name="src/rt0/_exit.c"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
@@ -19,21 +34,6 @@
       <File Name="inc/rt0/syscall.h"/>
       <File Name="inc/rt0/sys64.h"/>
       <File Name="inc/rt0/rt0.h"/>
-    </VirtualDirectory>
-  </VirtualDirectory>
-  <VirtualDirectory Name="src">
-    <File Name="src/test_queue.c"/>
-    <File Name="src/test_dsreadchar.c"/>
-    <File Name="src/test_dummy.c"/>
-    <File Name="src/mock_datastreamchar.c"/>
-    <File Name="src/test_dswritechar.c"/>
-    <File Name="src/test_cmdprompt.c"/>
-    <File Name="src/test_queue_string.c"/>
-    <File Name="src/sqlibembeddedc_tests.c"/>
-    <File Name="src/test_parse_ansi.c"/>
-    <VirtualDirectory Name="rt0">
-      <File Name="src/rt0/00_start.c"/>
-      <File Name="src/rt0/_exit.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Description/>
