@@ -1,7 +1,8 @@
 # project settings
 BIN_NAME = libsqlibembeddedc
 C_SOURCES = src/ansi/parse_ansi.c \
-src/queue/queue_string.c src/queue/queue.c \
+src/queue/queue_string.c \
+src/queue/queue_char.c src/queue/queue_uint8.c \
 src/cmdline/cmdline_prompt.c \
 src/datastream/dswritechar.c src/datastream/dsreadchar.c
 INCLUDES = -Iinc -Iinc_internal

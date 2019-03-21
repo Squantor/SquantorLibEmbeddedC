@@ -24,13 +24,13 @@ SOFTWARE.
 
 #include <queue.h>
 
-void queueCharInit(t_queueChar *queue)
+void queueCharInit(queueChar_t *queue)
 {
     queue->head = 0;
     queue->tail = 0;
 }
 
-result queueCharState(t_queueChar *queue)
+result queueCharState(queueChar_t *queue)
 {
     if(queue->head == queue->tail)
         return queueEmpty;
@@ -40,7 +40,7 @@ result queueCharState(t_queueChar *queue)
         return queueNotEmpty;    
 }
 
-result queueCharEnqueue(t_queueChar *queue, char p)
+result queueCharEnqueue(queueChar_t *queue, char p)
 {
     int newHead = (queue->head+1) % queue->max;
     if(newHead == queue->tail)
@@ -50,7 +50,7 @@ result queueCharEnqueue(t_queueChar *queue, char p)
     return noError;
 }
 
-result queueCharDequeue(t_queueChar *queue, char *p)
+result queueCharDequeue(queueChar_t *queue, char *p)
 {
     if(queue->head == queue->tail)
         return queueEmpty;

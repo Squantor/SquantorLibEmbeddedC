@@ -21,45 +21,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef QUEUE_H
-#define QUEUE_H
 
-#include <results.h>
-#include <stdint.h>
+#include <queue.h>
 
-/* 
-we differentiate between full and empty by the conditions:
-tail == head : empty,
-tail+1 == head : full
-due to this, we always have one element unused.
-Head and tail are always bounded by max
-*/
+void queueUint8Init(queueUint8_t *queue)
+{
+    queue->head = 0;
+    queue->tail = 0;
+}
 
-typedef struct {
-    const int max;
-    int head;
-    int tail;
-    char * const buf;
-} queueChar_t;
+result queueUint8State(queueUint8_t *queue)
+{
+    if(queue->head == queue->tail)
+        return queueEmpty;
+    else if(((queue->head+1) % queue->max) == queue->tail)
+        return queueFull;
+    else
+        return queueNotEmpty;    
+}
 
-typedef struct {
-    const int max;
-    int head;
-    int tail;
-    uint8_t * const buf;
-} queueUint8_t;
+result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p)
+{
+    int newHead = (queue->head+1) % queue->max;
+    if(newHead == queue->tail)
+        return queueFull;
+    queue->buf[queue->head] = p;
+    queue->head = newHead;
+    return noError;
+}
 
-
-
-void queueCharInit(queueChar_t *queue);
-result queueCharState(queueChar_t *queue);
-result queueCharEnqueue(queueChar_t *queue, const char p);
-result queueCharDequeue(queueChar_t *queue, char *p);
-
-void queueUint8Init(queueUint8_t *queue);
-result queueUint8State(queueUint8_t *queue);
-result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p);
-result queueUint8Dequeue(queueUint8_t *queue, uint8_t *p);
-
-
-#endif
+result queueUint8Dequeue(queueUint8_t *queue, uint8_t *p)
+{
+    if(queue->head == queue->tail)
+        return queueEmpty;
+    *p = queue->buf[queue->tail];
+    queue->tail = (queue->tail+1) % queue->max;
+    return noError;
+}

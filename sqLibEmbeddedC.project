@@ -16,15 +16,16 @@
     <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="queue">
+      <File Name="src/queue/queue_uint8.c"/>
+      <File Name="src/queue/queue_string.c"/>
+      <File Name="src/queue/queue_char.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="datastream">
       <File Name="src/datastream/dswritechar.c"/>
       <File Name="src/datastream/dsreadu8.c"/>
       <File Name="src/datastream/dsreadchar.c"/>
       <File Name="src/datastream/dswriteu8.c"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="queue">
-      <File Name="src/queue/queue.c"/>
-      <File Name="src/queue/queue_string.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="cmdline">
       <File Name="src/cmdline/cmdline_prompt.c"/>
