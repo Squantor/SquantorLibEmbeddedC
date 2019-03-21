@@ -32,29 +32,29 @@ void queueCharInit(t_queueChar *queue)
 
 result queueCharState(t_queueChar *queue)
 {
-    if(queue->head == queue->tail)                                    \
-        return queueEmpty;                                                      \
-    else if(((queue->head+1) % queue->max) == queue->tail)                  \
-        return queueFull;                                                       \
-    else                                                                        \
+    if(queue->head == queue->tail)
+        return queueEmpty;
+    else if(((queue->head+1) % queue->max) == queue->tail)
+        return queueFull;
+    else
         return queueNotEmpty;    
 }
 
 result queueCharEnqueue(t_queueChar *queue, char p)
 {
-    int newHead = (queue->head+1) % queue->max;                             \
-    if(newHead == queue->tail)                                             \
-        return queueFull;                                                       \
-    queue->buf[queue->head] = p;                                    \
-    queue->head = newHead;                                                 \
-    return noError;  
+    int newHead = (queue->head+1) % queue->max;
+    if(newHead == queue->tail)
+        return queueFull;
+    queue->buf[queue->head] = p;
+    queue->head = newHead;
+    return noError;
 }
 
 result queueCharDequeue(t_queueChar *queue, char *p)
 {
-    if(queue->head == queue->tail)                                    \
-        return queueEmpty;                                                      \
-    *p = queue->buf[queue->tail];                                    \
-    queue->tail = (queue->tail+1) % queue->max;                             \
-    return noError;    
+    if(queue->head == queue->tail)
+        return queueEmpty;
+    *p = queue->buf[queue->tail];
+    queue->tail = (queue->tail+1) % queue->max;
+    return noError;
 }
