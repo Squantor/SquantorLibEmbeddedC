@@ -49,7 +49,25 @@ typedef struct {
     uint8_t * const buf;
 } queueUint8_t;
 
+#define queueInit(queue) _Generic((queue), \
+    queueChar_t *: queueCharInit, \
+    queueUint8_t *: queueUint8Init \
+    )(queue)
 
+#define queueState(queue) _Generic((queue), \
+    queueChar_t *: queueCharState, \
+    queueUint8_t *: queueUint8State \
+    )(queue)
+
+#define queueEnqueue(queue, element) _Generic((queue), \
+    queueChar_t *: queueCharEnqueue, \
+    queueUint8_t *: queueUint8Enqueue \
+    )(queue, element)
+
+#define queueDequeue(queue, element) _Generic((queue), \
+    queueChar_t *: queueCharDequeue, \
+    queueUint8_t *: queueUint8Dequeue \
+    )(queue, element)
 
 void queueCharInit(queueChar_t *queue);
 result queueCharState(queueChar_t *queue);
@@ -60,6 +78,5 @@ void queueUint8Init(queueUint8_t *queue);
 result queueUint8State(queueUint8_t *queue);
 result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p);
 result queueUint8Dequeue(queueUint8_t *queue, uint8_t *p);
-
 
 #endif
