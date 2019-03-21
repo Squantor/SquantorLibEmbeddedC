@@ -44,15 +44,15 @@ MU_TEST(testDsReadCharNormal)
 {
     char c;
     mu_check(mockDsPutReads(testabc, sizeof(testabc)) == noError);
-    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(dsReadElement(&c, &testDsChar) == noError);
     mu_check(c == 'a');
-    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(dsReadElement(&c, &testDsChar) == noError);
     mu_check(c == 'b');
-    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(dsReadElement(&c, &testDsChar) == noError);
     mu_check(c == 'c');
-    mu_check(dsReadChar(&c, &testDsChar) == noError);
+    mu_check(dsReadElement(&c, &testDsChar) == noError);
     mu_check(c == '\0');
-    mu_check(dsReadChar(&c, &testDsChar) == streamEmtpy);
+    mu_check(dsReadElement(&c, &testDsChar) == streamEmtpy);
 }
 
 MU_TEST_SUITE(testDsReadChar) 

@@ -26,19 +26,52 @@ SOFTWARE.
 
 #include <results.h>
 #include <stddef.h>
+#include <stdint.h>
 
-typedef struct datastreamChar datastreamChar_t;
-
-struct datastreamChar
+typedef struct datastreamChar
 {
     result (*write)(const char *c);
     result (*read)(char *c);
     const char *name;
-};
+} datastreamChar_t;
+
+typedef struct datastreamUint8
+{
+    result (*write)(const uint8_t *c);
+    result (*read)(uint8_t *c);
+    const char *name;
+} datastreamUint8_t;
+
+typedef struct datastreamUint16
+{
+    result (*write)(const uint16_t *c);
+    result (*read)(uint16_t *c);
+    const char *name;
+} datastreamUint16_t;
+
+#define dsWriteElement(e, stream) _Generic((stream), \
+    datastreamChar_t * : dsWriteChar, \
+    datastreamUint8_t * : dsWriteUint8, \
+    datastreamUint16_t * : dsWriteUint16 \
+    )(e, stream)
+    
+#define dsReadElement(e, stream) _Generic((stream), \
+    datastreamChar_t * : dsReadChar, \
+    datastreamUint8_t * : dsReadUint8, \
+    datastreamUint16_t * : dsReadUint16 \
+    )(e, stream)
 
 /* write c to stream*/
 result dsWriteChar(const char c, datastreamChar_t *stream);
 /* reads from stream into c */
 result dsReadChar(char *c, datastreamChar_t *stream);
+/* write e to stream*/
+result dsWriteUint8(const uint8_t c, datastreamUint8_t *stream);
+/* reads from stream into e */
+result dsReadUint8(uint8_t *c, datastreamUint8_t *stream);
+/* write e to stream*/
+result dsWriteUint16(const uint16_t c, datastreamUint16_t *stream);
+/* reads from stream into e */
+result dsReadUint16(uint16_t *c, datastreamUint16_t *stream);
 
 #endif
