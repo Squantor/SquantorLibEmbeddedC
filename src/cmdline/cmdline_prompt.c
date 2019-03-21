@@ -143,8 +143,6 @@ result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(cha
                     ansiParse(c);
                     promptState = promptEscape;
                     break;
-                case EOF:
-                    break;
                 default:
                     cmdlinePromptAdd(stream, currentPrompt, &currentPromptIndex, c);
                     break;
