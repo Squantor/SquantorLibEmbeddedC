@@ -4,6 +4,10 @@
 #include <results.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct queueString
 {
     // mask be power of two!
@@ -24,6 +28,8 @@ result queueStringPrev(t_queueString * queue, uint16_t * i, char * s);
 // get next string in queue from i
 result queueStringNext(t_queueString * queue, uint16_t * i, char * s);
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif

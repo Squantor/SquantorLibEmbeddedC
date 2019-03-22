@@ -24,6 +24,10 @@ SOFTWARE.
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <results.h>
 #include <stdint.h>
 
@@ -78,5 +82,9 @@ void queueUint8Init(queueUint8_t *queue);
 result queueUint8State(queueUint8_t *queue);
 result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p);
 result queueUint8Dequeue(queueUint8_t *queue, uint8_t *p);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

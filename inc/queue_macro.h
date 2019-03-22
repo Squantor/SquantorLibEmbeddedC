@@ -30,8 +30,12 @@ only use direct types that can be copied by assignment.
 #ifndef __QUEUE_TEMPLATE_H__
 #define __QUEUE_TEMPLATE_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
-#include "results.h"
+#include <results.h>
 
 #define TEMPLATE_QUEUE_VARS(name, type, size)                                   \
                                                                                 \
@@ -84,5 +88,9 @@ static result name##Dequeue(type* p)                                            
     queue##name.tail = (queue##name.tail+1) & mask;                             \
     return noError;                                                             \
 }                                                                               \
-                                                                                
+             
+#ifdef __cplusplus
+}
+#endif
+                                                                   
 #endif

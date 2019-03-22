@@ -24,6 +24,10 @@ SOFTWARE.
 #ifndef CMDLINE_PROMPT_H
 #define CMDLINE_PROMPT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <queue_string.h>
 #include <results.h>
 #include <datastream.h>
@@ -36,5 +40,9 @@ When some characters need to be returned, they will be output via stream.
 When a full commandline is input, calls cmdlineParse to interpret command.
 */
 result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(char *cmdline));
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

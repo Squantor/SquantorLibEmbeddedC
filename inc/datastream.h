@@ -24,6 +24,10 @@ SOFTWARE.
 #ifndef DATASTREAM_H
 #define DATASTREAM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <results.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -73,5 +77,9 @@ result dsReadUint8(uint8_t *c, datastreamUint8_t *stream);
 result dsWriteUint16(const uint16_t c, datastreamUint16_t *stream);
 /* reads from stream into e */
 result dsReadUint16(uint16_t *c, datastreamUint16_t *stream);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

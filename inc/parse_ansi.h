@@ -24,6 +24,10 @@ SOFTWARE.
 #ifndef PARSE_ANSI_H
 #define PARSE_ANSI_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum
 {
     // below this value when busy with parsing but not known yet
@@ -43,5 +47,9 @@ typedef enum
  * means. 
  */
 ansiSequence ansiParse(char c);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
