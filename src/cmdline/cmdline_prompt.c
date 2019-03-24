@@ -63,9 +63,9 @@ static void cmdlinePromptDel(datastreamChar_t *stream, uint16_t *promptBufIdx, u
 {
     for(uint16_t i = 0; i < count; i++)
     {
-        dsWriteChar(ASCII_BS, stream);
-        dsWriteChar(ASCII_SPACE, stream);
-        dsWriteChar(ASCII_BS, stream); 
+        dsWriteChar(stream, ASCII_BS);
+        dsWriteChar(stream, ASCII_SPACE);
+        dsWriteChar(stream, ASCII_BS);
         (*promptBufIdx)--;
         if(*promptBufIdx == 0)
             return;
@@ -79,7 +79,7 @@ static void cmdlinePromptAdd(datastreamChar_t *stream, char *promptBuf, uint16_t
 {
     if(*promptBufIdx < CMDLINE_MAX_LENGTH-1)
     {
-        dsWriteChar(c, stream);
+        dsWriteChar(stream, c);
         promptBuf[*promptBufIdx] = c;
         (*promptBufIdx)++;
     }
@@ -92,7 +92,7 @@ static void cmdlinePromptAddString(datastreamChar_t *stream, char *promptBuf, ui
 {
     while(*s != ASCII_NUL)
     {
-        dsWriteChar(*s, stream);
+        dsWriteChar(stream, *s);
         promptBuf[*promptBufIdx] = *s;
         (*promptBufIdx)++;
         s++;
@@ -107,7 +107,7 @@ result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(cha
     static char currentPrompt[CMDLINE_MAX_LENGTH];
     static promptState_t promptState = promptNormal;
     char c;
-    result r = dsReadChar(&c, stream);
+    result r = dsReadChar(stream, &c);
     if(r != noError)
     {
         return r;
@@ -123,7 +123,7 @@ result cmdlinePromptProcess(datastreamChar_t *stream, result (*cmdlineParse)(cha
                     cmdlinePromptDel(stream, &currentPromptIndex, 1);
                     break;
                 case ASCII_CR:
-                    dsWriteChar(ASCII_CR, stream);
+                    dsWriteChar(stream, ASCII_CR);
                     // terminate prompt string
                     currentPrompt[currentPromptIndex] = ASCII_NUL;
                     // check length

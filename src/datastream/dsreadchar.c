@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include <datastream.h>
 
-result dsReadChar(char *c, datastreamChar_t *stream)
+result dsReadChar(datastreamChar_t *stream, char *c)
 {
     return stream->read(c);
 }

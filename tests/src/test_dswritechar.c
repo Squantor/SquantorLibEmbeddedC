@@ -40,8 +40,8 @@ static void testDsWriteCharTeardown(void)
 
 MU_TEST(testDsWriteCharNormal) 
 {
-    mu_check(dsWriteElement('a', &testDsChar) == noError);
-    mu_check(dsWriteElement('b', &testDsChar) == noError);
+    mu_check(dsWriteElement(&testDsChar, 'a') == noError);
+    mu_check(dsWriteElement(&testDsChar, 'b') == noError);
 }
 
 MU_TEST_SUITE(testDsWriteChar) 

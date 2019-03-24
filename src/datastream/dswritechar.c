@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include <datastream.h>
 
-result dsWriteChar(const char c, datastreamChar_t *stream)
+result dsWriteChar(datastreamChar_t *stream, const char c)
 {
     return stream->write(&c);
 }
