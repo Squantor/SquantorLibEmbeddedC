@@ -23,6 +23,7 @@ SOFTWARE.
 */
 /*
 */
+#include <string.h>
 #include <sqMinUnitC.h>
 #include <datastream.h>
 #include <test_dsputs.h>

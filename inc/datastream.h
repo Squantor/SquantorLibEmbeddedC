@@ -66,19 +66,19 @@ typedef struct datastreamUint16
     )(stream, e)
 
 /* write c to stream*/
-result dsWriteChar(datastreamChar_t *stream, const char c);
+result dsWriteChar(const datastreamChar_t *restrict stream, const char c);
 /* reads from stream into c */
-result dsReadChar(datastreamChar_t *stream, char *c);
+result dsReadChar(const datastreamChar_t *restrict stream, char *restrict c);
 /* write e to stream*/
-result dsWriteUint8(datastreamUint8_t *stream, const uint8_t c);
+result dsWriteUint8(const datastreamUint8_t *restrict stream, const uint8_t c);
 /* reads from stream into e */
-result dsReadUint8(datastreamUint8_t *stream, uint8_t *c);
+result dsReadUint8(const datastreamUint8_t *restrict stream, uint8_t *restrict c);
 /* write e to stream*/
-result dsWriteUint16(datastreamUint16_t *stream, const uint16_t c);
+result dsWriteUint16(const datastreamUint16_t *restrict stream, const uint16_t c);
 /* reads from stream into e */
-result dsReadUint16(datastreamUint16_t *stream, uint16_t *c);
+result dsReadUint16(const datastreamUint16_t *restrict stream, uint16_t *restrict c);
 /* write string ala puts to char stream */
-result dsPuts(const datastreamChar_t *stream, char *restrict s);
+result dsPuts(const datastreamChar_t *restrict stream, char *restrict s);
 
 
 #ifdef __cplusplus

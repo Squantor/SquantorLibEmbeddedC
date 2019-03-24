@@ -31,7 +31,7 @@ SOFTWARE.
 
 char testCmdPromptStringBuffer[32];
 t_queueString testCmdPromptStringQueue = {
-    .len = sizeof(testCmdPromptStringBuffer)-1,
+    .mask = sizeof(testCmdPromptStringBuffer)-1,
     .head = 0,
     .tail = 0,
     .data = testCmdPromptStringBuffer,

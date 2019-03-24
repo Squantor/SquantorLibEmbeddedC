@@ -11,22 +11,22 @@ extern "C" {
 typedef struct queueString
 {
     // mask be power of two!
-    const uint16_t    len;
-    uint16_t    head;
-    uint16_t    tail;
-    char *      data;
+    const uint16_t  mask;
+    uint16_t        head;
+    uint16_t        tail;
+    char *          data;
 } t_queueString;
 
 // add string, if it does not fit, oldest gets deleted
-result queueStringEnqueue(t_queueString * queue, char * s);
+result queueStringEnqueue(t_queueString *queue, char *restrict s);
 // remove last added string
-result queueStringDequeue(t_queueString *queue, char * s);
+result queueStringDequeue(t_queueString *queue, char *restrict s);
 // get first string in queue
-result queueStringFirst(t_queueString * queue, uint16_t * i, char * s);
+result queueStringFirst(const t_queueString *restrict queue, uint16_t *restrict i, char *restrict s);
 // get previous string in queue from i
-result queueStringPrev(t_queueString * queue, uint16_t * i, char * s);
+result queueStringPrev(const t_queueString *restrict queue, uint16_t *restrict i, char *restrict s);
 // get next string in queue from i
-result queueStringNext(t_queueString * queue, uint16_t * i, char * s);
+result queueStringNext(const t_queueString *restrict queue, uint16_t *restrict i, char *restrict s);
 
 #ifdef __cplusplus
 }

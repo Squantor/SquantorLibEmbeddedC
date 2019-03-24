@@ -73,15 +73,15 @@ typedef struct {
     queueUint8_t *: queueUint8Dequeue \
     )(queue, element)
 
-void queueCharInit(queueChar_t *queue);
-result queueCharState(queueChar_t *queue);
-result queueCharEnqueue(queueChar_t *queue, const char p);
-result queueCharDequeue(queueChar_t *queue, char *p);
+void queueCharInit(queueChar_t *restrict queue);
+result queueCharState(const queueChar_t *restrict queue);
+result queueCharEnqueue(queueChar_t *restrict queue, const char p);
+result queueCharDequeue(queueChar_t *restrict queue, char *restrict p);
 
-void queueUint8Init(queueUint8_t *queue);
-result queueUint8State(queueUint8_t *queue);
-result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p);
-result queueUint8Dequeue(queueUint8_t *queue, uint8_t *p);
+void queueUint8Init(queueUint8_t *restrict queue);
+result queueUint8State(const queueUint8_t *restrict queue);
+result queueUint8Enqueue(queueUint8_t *restrict queue, const uint8_t p);
+result queueUint8Dequeue(queueUint8_t *restrict queue, uint8_t *p);
 
 #ifdef __cplusplus
 }

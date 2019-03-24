@@ -24,13 +24,13 @@ SOFTWARE.
 
 #include <queue.h>
 
-void queueUint8Init(queueUint8_t *queue)
+void queueUint8Init(queueUint8_t *restrict queue)
 {
     queue->head = 0;
     queue->tail = 0;
 }
 
-result queueUint8State(queueUint8_t *queue)
+result queueUint8State(const queueUint8_t *restrict queue)
 {
     if(queue->head == queue->tail)
         return queueEmpty;
@@ -40,7 +40,7 @@ result queueUint8State(queueUint8_t *queue)
         return queueNotEmpty;    
 }
 
-result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p)
+result queueUint8Enqueue(queueUint8_t *restrict queue, const uint8_t p)
 {
     int newHead = (queue->head+1) % queue->max;
     if(newHead == queue->tail)
@@ -50,7 +50,7 @@ result queueUint8Enqueue(queueUint8_t *queue, const uint8_t p)
     return noError;
 }
 
-result queueUint8Dequeue(queueUint8_t *queue, uint8_t *p)
+result queueUint8Dequeue(queueUint8_t *restrict queue, uint8_t *restrict p)
 {
     if(queue->head == queue->tail)
         return queueEmpty;

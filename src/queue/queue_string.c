@@ -30,20 +30,20 @@ SOFTWARE.
 
 // helper functions
 // search forward for seperator
-static uint16_t SeekForwardSep(t_queueString * queue, uint16_t idx)
+static uint16_t SeekForwardSep(const t_queueString *restrict queue, uint16_t idx)
 {
     while(queue->data[idx] != 0)
-        idx = WRAP(idx + 1, queue->len);
+        idx = WRAP(idx + 1, queue->mask);
     return idx;
 }
 
 // search forward for not seperator
-static uint16_t SeekForwardNotSep(t_queueString * queue, uint16_t idx)
+static uint16_t SeekForwardNotSep(const t_queueString *restrict queue, uint16_t idx)
 {
     uint16_t newIndex = idx;
     while(queue->data[newIndex] == 0)
     {
-        newIndex = WRAP(newIndex + 1, queue->len);
+        newIndex = WRAP(newIndex + 1, queue->mask);
         // if we are equal to tail, then we are empty, return
         if(newIndex == queue->head)
             return newIndex;
@@ -52,13 +52,13 @@ static uint16_t SeekForwardNotSep(t_queueString * queue, uint16_t idx)
 }
 
 // search backward for seperator
-static uint16_t SeekBackSep(t_queueString * queue, uint16_t idx)
+static uint16_t SeekBackSep(const t_queueString *restrict queue, uint16_t idx)
 {
-    uint16_t newIndex = WRAP(idx - 1, queue->len);
+    uint16_t newIndex = WRAP(idx - 1, queue->mask);
     // first scan backwards for one or more NUL chars while checking the tail
     while(queue->data[newIndex] == 0)
     {
-        newIndex = WRAP(newIndex - 1, queue->len);
+        newIndex = WRAP(newIndex - 1, queue->mask);
         // reached end, new index is old index
         if(newIndex == queue->tail)
             return idx;
@@ -66,31 +66,31 @@ static uint16_t SeekBackSep(t_queueString * queue, uint16_t idx)
     // then scan backwards for one or more non NUL characters while checking the tail
     while(queue->data[newIndex] != 0)
     {
-        newIndex = WRAP(newIndex - 1, queue->len);
+        newIndex = WRAP(newIndex - 1, queue->mask);
         // we dont check for tail, tail always should end on a NUL char
         // this way we prevent not losing the last string
     }
     // return the new index
-    return WRAP(newIndex + 1, queue->len);
+    return WRAP(newIndex + 1, queue->mask);
 }
 
-result queueStringEnqueue(t_queueString *queue, char * s)
+result queueStringEnqueue(t_queueString *restrict queue, char *restrict s)
 {
     if((queue == NULL) || (s == NULL))
         return invalidArg;
         
     uint16_t stringSize = strlen(s);
-    if(!(stringSize > 0) || !(stringSize < queue->len))
+    if(!(stringSize > 0) || !(stringSize < queue->mask))
         return dataInvalid;
     
     // now also add the zero terminator
     stringSize++;
     // do we have enough space to add at the head?
     uint16_t newHead;
-    if((stringSize) > (queue->len - queue->head))
+    if((stringSize) > (queue->mask - queue->head))
     {
         // no, clear the end so we do not find strings later on there
-        memset(&(queue->data[queue->head]), 0, queue->len - queue->head);
+        memset(&(queue->data[queue->head]), 0, queue->mask - queue->head);
         // reset head to 0
         newHead = 0;
         // did we overtake the tail? (also take into account tail is zero)
@@ -119,7 +119,7 @@ result queueStringEnqueue(t_queueString *queue, char * s)
     return noError;
 }
 
-result queueStringDequeue(t_queueString *queue, char * s)
+result queueStringDequeue(t_queueString *restrict queue, char *restrict s)
 {
     if((queue == NULL) || (s == NULL))
         return invalidArg;
@@ -141,7 +141,7 @@ result queueStringDequeue(t_queueString *queue, char * s)
     return noError;
 }
 
-result queueStringPrev(t_queueString * queue, uint16_t * i, char * s)
+result queueStringPrev(const t_queueString *restrict queue, uint16_t *restrict i, char *restrict s)
 {
     if((queue == NULL) || (i == NULL) || (s == NULL))
         return invalidArg;
@@ -157,7 +157,7 @@ result queueStringPrev(t_queueString * queue, uint16_t * i, char * s)
     return noError;
 }
 
-result queueStringNext(t_queueString * queue, uint16_t * i, char * s)
+result queueStringNext(const t_queueString *restrict queue, uint16_t *restrict i, char *restrict s)
 {
     if((queue == NULL) || (i == NULL) || (s == NULL))
         return invalidArg;

@@ -5,7 +5,7 @@
 #include <test_queue_string.h>
 
 char testQueueStringBuffer[128];
-t_queueString testQueue = {.len = sizeof(testQueueStringBuffer)-1, .head = 0, .tail = 0, .data = testQueueStringBuffer};
+t_queueString testQueue = {.mask = sizeof(testQueueStringBuffer)-1, .head = 0, .tail = 0, .data = testQueueStringBuffer};
 
 void testSetupQueueString(void) 
 {
