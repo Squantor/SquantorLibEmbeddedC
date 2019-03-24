@@ -23,52 +23,39 @@ SOFTWARE.
 */
 /*
 */
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
-#include <test_queue_string.h>
-#include <test_cmdprompt.h>
-#include <test_dswritechar.h>
-#include <test_dsreadchar.h>
-#include <test_queue.h>
+#include <sqMinUnitC.h>
+#include <datastream.h>
 #include <test_dsputs.h>
+#include <mock_datastreamchar.h>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
-
-int sysWrite( int f, const char* d, int l )
+static void testdsPutsSetup(void) 
 {
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
+    mockDsCharReset();
 }
 
-int str_len( const char *string )
+static void testdsPutsTeardown(void) 
 {
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
+
 }
 
-void println( const char* string )
+MU_TEST(testdsPutsNormal) 
 {
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
+    char testInput[] = "abc";
+    char testOutput[] = "abc\n";
+    char testBuffer[12];
+    mu_check(dsPuts(&testDsChar, testInput) == noError);
+    mu_check(mockDsGetWrites(testBuffer, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, testBuffer, 4) == 0);
 }
 
-int main() 
+MU_TEST_SUITE(testdsPuts) 
 {
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    testQueueSuite();
-    testQueueStringSuite();
-    testDsWriteCharSuite();
-    testDsReadCharSuite();
-    testdsPutsSuite();
-    testCmdPromptSuite();
-    if(minunitFailures != 0)
-        println("Test failures occured!");
-    else
-        println("All tests passed.");
-    return 0;
+    MU_SUITE_CONFIGURE(&testdsPutsSetup, &testdsPutsTeardown);
+    MU_RUN_TEST(testdsPutsNormal);
+}
+
+void testdsPutsSuite()
+{
+    MU_RUN_SUITE(testdsPuts);
 }

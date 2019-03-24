@@ -77,6 +77,9 @@ result dsReadUint8(datastreamUint8_t *stream, uint8_t *c);
 result dsWriteUint16(datastreamUint16_t *stream, const uint16_t c);
 /* reads from stream into e */
 result dsReadUint16(datastreamUint16_t *stream, uint16_t *c);
+/* write string ala puts to char stream */
+result dsPuts(const datastreamChar_t *stream, char *restrict s);
+
 
 #ifdef __cplusplus
 }

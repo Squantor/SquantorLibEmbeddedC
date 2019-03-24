@@ -21,54 +21,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-/*
-*/
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
-#include <test_queue_string.h>
-#include <test_cmdprompt.h>
-#include <test_dswritechar.h>
-#include <test_dsreadchar.h>
-#include <test_queue.h>
-#include <test_dsputs.h>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
+#include <datastream.h>
 
-int sysWrite( int f, const char* d, int l )
+result dsPuts(const datastreamChar_t *stream, char *restrict s)
 {
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
-}
-
-int str_len( const char *string )
-{
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
-}
-
-void println( const char* string )
-{
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
-}
-
-int main() 
-{
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    testQueueSuite();
-    testQueueStringSuite();
-    testDsWriteCharSuite();
-    testDsReadCharSuite();
-    testdsPutsSuite();
-    testCmdPromptSuite();
-    if(minunitFailures != 0)
-        println("Test failures occured!");
+    char cr = '\n';
+    while(*s != '\0')
+    {
+        result writeResult = stream->write(s);
+        if(writeResult != noError)
+            return writeResult;
+        s++;
+    }
+    
+    result writeResult = stream->write(&cr);
+    if(writeResult != noError)
+        return writeResult;
     else
-        println("All tests passed.");
-    return 0;
+        return noError;
 }

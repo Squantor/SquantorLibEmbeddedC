@@ -4,7 +4,8 @@ C_SOURCES += src/sqlibembeddedc_tests.c \
 src/mock_datastreamchar.c \
 src/test_parse_ansi.c src/test_queue_string.c src/test_cmdprompt.c \
 src/test_dswritechar.c src/test_dsreadchar.c \
-src/test_queue_char.c
+src/test_queue_char.c \
+src/test_dsputs.c
 CXX_SOURCES +=
 S_SOURCES +=
 INCLUDES = -Iinc -I../inc -IsquantorLibC/inc

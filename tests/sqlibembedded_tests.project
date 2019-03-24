@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqlibembedded_tests" Version="10.0.0" InternalType="">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="src">
+    <File Name="src/test_dswriteu16.c"/>
+    <File Name="src/test_dsreadu16.c"/>
+    <File Name="src/test_dsreadu8.c"/>
+    <File Name="src/test_dsputs.c"/>
+    <File Name="src/test_dswriteu8.c"/>
     <File Name="src/test_queue_char.c"/>
     <File Name="src/test_dummy.c"/>
     <File Name="src/mock_datastreamchar.c"/>
@@ -15,12 +25,12 @@
       <File Name="src/rt0/_exit.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_dswriteu16.h"/>
+    <File Name="inc/test_dsreadu8.h"/>
+    <File Name="inc/test_dsreadu16.h"/>
+    <File Name="inc/test_dsputs.h"/>
+    <File Name="inc/test_dswriteu8.h"/>
     <File Name="inc/test_queue.h"/>
     <File Name="inc/test_dsreadchar.h"/>
     <File Name="inc/test_parse_ansi.h"/>

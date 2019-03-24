@@ -22,6 +22,9 @@
       <File Name="src/queue/queue_char.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="datastream">
+      <File Name="src/datastream/dswriteu16.c"/>
+      <File Name="src/datastream/dsreadu16.c"/>
+      <File Name="src/datastream/dsputs.c"/>
       <File Name="src/datastream/dswritechar.c"/>
       <File Name="src/datastream/dsreadu8.c"/>
       <File Name="src/datastream/dsreadchar.c"/>
