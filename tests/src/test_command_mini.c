@@ -39,13 +39,21 @@ static void testCommandMiniTeardown(void)
 
 MU_TEST(testCommandMiniNormal) 
 {
+    // emit working command
+    // checkout output
+}
 
+MU_TEST(testCommandMiniFail) 
+{
+    // emit not working command
+    // checkout output
 }
 
 MU_TEST_SUITE(testCommandMini) 
 {
     MU_SUITE_CONFIGURE(&testCommandMiniSetup, &testCommandMiniTeardown);
     MU_RUN_TEST(testCommandMiniNormal);
+    MU_RUN_TEST(testCommandMiniFail);
 }
 
 void testCommandMiniSuite()
