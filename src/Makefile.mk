@@ -3,7 +3,8 @@ BIN_NAME = libsqlibembeddedc
 C_SOURCES = src/ansi/parse_ansi.c \
 src/queue/queue_string.c \
 src/queue/queue_char.c src/queue/queue_uint8.c \
-src/cmdline/cmdline_prompt.c \
+src/cmdline/cmdline_prompt.c src/prompt/prompt_mini.c \
+src/command/command_mini.c \
 src/datastream/dswritechar.c src/datastream/dsreadchar.c \
 src/datastream/dsputs.c
 INCLUDES = -Iinc -Iinc_internal

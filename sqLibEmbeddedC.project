@@ -6,6 +6,8 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/prompt_mini.h"/>
+    <File Name="inc/command_mini.h"/>
     <File Name="inc/cmdline.h"/>
     <File Name="inc/queue.h"/>
     <File Name="inc/parse_ansi.h"/>
@@ -16,6 +18,12 @@
     <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="prompt">
+      <File Name="src/prompt/prompt_mini.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="command">
+      <File Name="src/command/command_mini.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="queue">
       <File Name="src/queue/queue_uint8.c"/>
       <File Name="src/queue/queue_string.c"/>

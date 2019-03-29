@@ -25,6 +25,7 @@ SOFTWARE.
 */
 #include <sqMinUnitC.h>
 #include <test_command_mini.h>
+#include <command_mini.h>
 
 static void testCommandMiniSetup(void) 
 {
