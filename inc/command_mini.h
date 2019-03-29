@@ -36,7 +36,7 @@ typedef struct command_entry
     result (*const handler)(void);
 } commandEntry_t;
 
-result commandInterpret(commandEntry_t *restrict list, const char *restrict command);
+result commandInterpret(commandEntry_t *__restrict__ list, const char *__restrict__ command);
 
 #ifdef __cplusplus
 }
