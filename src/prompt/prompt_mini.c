@@ -46,7 +46,7 @@ result promptProcess(promptData_t *const promptData, const datastreamChar_t *str
             // check length
             if(strlen(promptData->buffer) == 0)
                 // zero length string, do nothing
-                return noError;
+                return promptError;
             // clear prompt
             promptData->bufferIndex = 0;
             // execute

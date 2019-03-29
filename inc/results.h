@@ -47,6 +47,7 @@ typedef enum {
     queueNotEmpty,
     queueEmpty,
     dataInvalid,
+    promptError,
     commandNotFound,
     resultEnd,
 } result;
