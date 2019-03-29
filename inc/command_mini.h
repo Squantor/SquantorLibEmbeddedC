@@ -24,4 +24,10 @@ SOFTWARE.
 #ifndef COMMAND_MINI_H
 #define COMMAND_MINI_H
 
+typedef struct command_entry
+{
+    char *command;
+    char (*handler)(char * command);
+} commandEntry_t;
+
 #endif
