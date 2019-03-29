@@ -47,8 +47,8 @@ typedef enum {
     queueNotEmpty,
     queueEmpty,
     dataInvalid,
-    resultEnd,
     commandNotFound,
+    resultEnd,
 } result;
 
 #ifdef __cplusplus

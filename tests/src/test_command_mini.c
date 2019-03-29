@@ -30,32 +30,51 @@ SOFTWARE.
 const char testcmd1[] = "abc";
 const char testcmd2[] = "def";
 
+int handleCmd1Count;
+int handleCmd2Count;
+
+result testHandleCmd1(void)
+{
+    handleCmd1Count++;
+    return noError;
+}
+
+result testHandleCmd2(void)
+{
+    handleCmd2Count++;
+    return resultEnd;
+}
+
 commandEntry_t testlist[] = {
-    {testcmd1, NULL},
-    {testcmd2, NULL},
+    {testcmd1, testHandleCmd1},
+    {testcmd2, testHandleCmd2},
     {NULL, NULL},
     };
 
 static void testCommandMiniSetup(void) 
 {
-    
+    handleCmd1Count = 0;
+    handleCmd2Count = 0;
 }
 
 static void testCommandMiniTeardown(void) 
 {
-
+    
 }
 
-MU_TEST(testCommandMiniNormal) 
+MU_TEST(testCommandMiniNormal)
 {
-    // emit working command
-    // checkout output
+    mu_check(commandInterpret(testlist, "abc") == noError);
+    mu_check(handleCmd1Count == 1);
+    mu_check(commandInterpret(testlist, "def") == resultEnd);
+    mu_check(handleCmd2Count == 1);
 }
 
 MU_TEST(testCommandMiniFail) 
 {
-    // emit not working command
-    // checkout output
+    mu_check(commandInterpret(testlist, "ghi") == commandNotFound);
+    mu_check(handleCmd1Count == 0);
+    mu_check(handleCmd2Count == 0);
 }
 
 MU_TEST_SUITE(testCommandMini) 
