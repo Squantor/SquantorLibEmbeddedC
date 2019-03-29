@@ -23,56 +23,31 @@ SOFTWARE.
 */
 /*
 */
-#include <rt0/syscall.h>
-#include <test_parse_ansi.h>
-#include <test_queue_string.h>
-#include <test_cmdprompt.h>
-#include <test_dswritechar.h>
-#include <test_dsreadchar.h>
-#include <test_queue.h>
-#include <test_dsputs.h>
+#include <sqMinUnitC.h>
 #include <test_command_mini.h>
-#include <test_prompt_mini.h>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
-
-int sysWrite( int f, const char* d, int l )
+static void testCommandMiniSetup(void) 
 {
-   int ret = syscall3( SYS_write, f, ( long )( d ), l );
-
-   return( ret );
+    
 }
 
-int str_len( const char *string )
+static void testCommandMiniTeardown(void) 
 {
-   int length = 0;
-   while( *string ) { string++; length++; }
-   return( length );
+
 }
 
-void println( const char* string )
+MU_TEST(testCommandMiniNormal) 
 {
-   sysWrite( 1, string, str_len( string ) );
-   sysWrite( 1, "\n", 1 );
+
 }
 
-int main() 
+MU_TEST_SUITE(testCommandMini) 
 {
-    // sort test modules on dependencies
-    testParseAnsiSuite();
-    testQueueSuite();
-    testQueueStringSuite();
-    testDsWriteCharSuite();
-    testDsReadCharSuite();
-    testdsPutsSuite();
-    testCmdPromptSuite();
-    testPromptMiniSuite();
-    testCommandMiniSuite();
-    if(minunitFailures != 0)
-        println("Test failures occured!");
-    else
-        println("All tests passed.");
-    return 0;
+    MU_SUITE_CONFIGURE(&testCommandMiniSetup, &testCommandMiniTeardown);
+    MU_RUN_TEST(testCommandMiniNormal);
+}
+
+void testCommandMiniSuite()
+{
+    MU_RUN_SUITE(testCommandMini);
 }
