@@ -27,8 +27,8 @@ SOFTWARE.
 #include <test_command_mini.h>
 #include <command_mini.h>
 
-char testcmd1[] = "abc";
-char testcmd2[] = "def";
+const char testcmd1[] = "abc";
+const char testcmd2[] = "def";
 
 commandEntry_t testlist[] = {
     {testcmd1, NULL},

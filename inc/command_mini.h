@@ -24,10 +24,14 @@ SOFTWARE.
 #ifndef COMMAND_MINI_H
 #define COMMAND_MINI_H
 
+#include <results.h>
+
 typedef struct command_entry
 {
-    char *command;
-    char (*handler)(char * command);
+    const char * const command;
+    result (*const handler)(void);
 } commandEntry_t;
+
+result commandInterpret(commandEntry_t *restrict list, const char *restrict command);
 
 #endif
