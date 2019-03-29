@@ -26,6 +26,10 @@ SOFTWARE.
 
 #include <results.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct command_entry
 {
     const char * const command;
@@ -33,5 +37,9 @@ typedef struct command_entry
 } commandEntry_t;
 
 result commandInterpret(commandEntry_t *restrict list, const char *restrict command);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
