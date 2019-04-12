@@ -24,9 +24,8 @@ SOFTWARE.
 
 #include <datastream.h>
 
-result dsPuts(const datastreamChar_t *stream, char *restrict s)
+result dsPuts(const datastreamChar_t *stream, const char *restrict s)
 {
-    char cr = '\n';
     while(*s != '\0')
     {
         result writeResult = stream->write(s);
@@ -34,10 +33,5 @@ result dsPuts(const datastreamChar_t *stream, char *restrict s)
             return writeResult;
         s++;
     }
-    
-    result writeResult = stream->write(&cr);
-    if(writeResult != noError)
-        return writeResult;
-    else
-        return noError;
+    return noError;
 }
