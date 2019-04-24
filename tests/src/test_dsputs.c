@@ -42,12 +42,12 @@ static void testdsPutsTeardown(void)
 MU_TEST(testdsPutsNormal) 
 {
     char testInput[] = "abc";
-    char testOutput[] = "abc\n";
+    char testOutput[] = "abc";
     char testBuffer[12];
     mu_check(dsPuts(&testDsChar, testInput) == noError);
-    mu_check(mockDsGetWrites(testBuffer, 4) == noError);
+    mu_check(mockDsGetWrites(testBuffer, 3) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
-    mu_check(memcmp(testOutput, testBuffer, 4) == 0);
+    mu_check(memcmp(testOutput, testBuffer, 3) == 0);
 }
 
 MU_TEST_SUITE(testdsPuts) 
