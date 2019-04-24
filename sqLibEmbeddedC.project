@@ -6,6 +6,7 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/print.h"/>
     <File Name="inc/prompt_mini.h"/>
     <File Name="inc/command_mini.h"/>
     <File Name="inc/cmdline.h"/>
@@ -18,6 +19,15 @@
     <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="print">
+      <File Name="src/print/print_dec_u32.c"/>
+      <File Name="src/print/print_hex_u32.c"/>
+      <File Name="src/print/print_hex_u8.c"/>
+      <File Name="src/print/print_dec_u16.c"/>
+      <File Name="src/print/print_hex_u16.c"/>
+      <File Name="src/print/print_digit.c"/>
+      <File Name="src/print/print_bin_u32.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="prompt">
       <File Name="src/prompt/prompt_mini.c"/>
     </VirtualDirectory>
