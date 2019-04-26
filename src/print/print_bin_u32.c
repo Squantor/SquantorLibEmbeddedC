@@ -32,7 +32,7 @@ result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t d
     {
         result printResult;
         if(mask & data)
-            printResult =printDigitt(stream, 1);
+            printResult = printDigit(stream, 1);
         else
             printResult = printDigit(stream, 0);
         if(printResult != noError)

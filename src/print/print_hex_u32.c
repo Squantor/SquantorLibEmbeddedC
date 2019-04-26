@@ -29,22 +29,22 @@ SOFTWARE.
 result printHexU32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
 {
     result printResult;
-    printReprintDigitt_digit(stream, data>>28);
+    printResult = printDigit(stream, data>>28);
     if(printResult != noError)
         return printResult;
-    printResprintDigit_digit(stream, data>>24);
+    printResult = printDigit(stream, data>>24);
     if(printResult != noError)
         return printResult;
-    printResuprintDigitdigit(stream, data>>20);
+    printResult = printDigit(stream, data>>20);
     if(printResult != noError)
         return printResult;
-    printResulprintDigitigit(stream, data>>16);
+    printResult = printDigit(stream, data>>16);
     if(printResult != noError)
         return printResult;
-    printResultprintDigitgit(stream, data>>12);
+    printResult = printDigit(stream, data>>12);
     if(printResult != noError)
         return printResult;
-    printResult printDigitit(stream, data>>8);
+    printResult = printDigit(stream, data>>8);
     if(printResult != noError)
         return printResult;
     printResult = printDigit(stream, data>>4);

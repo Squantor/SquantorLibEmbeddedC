@@ -27,13 +27,13 @@ SOFTWARE.
 result printHexU16(const datastreamChar_t *__restrict__ stream, const uint16_t data)
 {
     result printResult;
-    printResultprintDigitgit(stream, data>>12);
+    printResult = printDigit(stream, data>>12);
     if(printResult != noError)
         return printResult;
-    printResult printDigitit(stream, data>>8);
+    printResult = printDigit(stream, data>>8);
     if(printResult != noError)
         return printResult;
-    printResult =printDigitt(stream, data>>4);
+    printResult = printDigit(stream, data>>4);
     if(printResult != noError)
         return printResult;
     return printDigit(stream, data);

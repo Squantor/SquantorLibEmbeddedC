@@ -64,16 +64,43 @@ MU_TEST(testPrintDigit)
     mu_check(memcmp(testOutput, testF, 1) == 0);
 }
 
-MU_TEST(testPrintU8) 
+MU_TEST(testPrintHexU8) 
 {
+    char testA6[] = "A6";
+    char testOutput[4];
+    mu_check(printHexU8(&testDsChar, 0xA6) == noError);
+    mu_check(mockDsGetWrites(testOutput, 2) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, testA6, 2) == 0);
+}
 
+MU_TEST(testPrintHexU16) 
+{
+    char test1B2C[] = "1B2C";
+    char testOutput[8];
+    mu_check(printHexU16(&testDsChar, 0x1B2C) == noError);
+    mu_check(mockDsGetWrites(testOutput, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test1B2C, 4) == 0);
+}
+
+MU_TEST(testPrintHexU32) 
+{
+    char test3D4E5F67[] = "3D4E5F67";
+    char testOutput[4];
+    mu_check(printHexU32(&testDsChar, 0x3D4E5F67) == noError);
+    mu_check(mockDsGetWrites(testOutput, 8) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test3D4E5F67, 8) == 0);
 }
 
 MU_TEST_SUITE(testPrint) 
 {
     MU_SUITE_CONFIGURE(&testPrintSetup, &testPrintTeardown);
     MU_RUN_TEST(testPrintDigit);
-    MU_RUN_TEST(testPrintU8);
+    MU_RUN_TEST(testPrintHexU8);
+    MU_RUN_TEST(testPrintHexU16);
+    MU_RUN_TEST(testPrintHexU32);
 }
 
 void testPrintSuite()
