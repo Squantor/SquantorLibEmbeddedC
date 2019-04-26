@@ -24,15 +24,18 @@ SOFTWARE.
 #include <print.h>
 #include <datastream.h>
 
-void print_dec_u32(const datastreamChar_t *__restrict__ stream, uint32_t data)
+result print_dec_u32(const datastreamChar_t *__restrict__ stream, uint32_t data)
 {
     uint32_t num = 1000000000;
     uint8_t idx;
     while(num > 0)
     {
         idx = data / num;
-        print_digit(stream, idx);
+        result printResult = print_digit(stream, idx);
+        if(printResult != noError)
+            return printResult;
         data -= idx * num;
         num = num / 10;
     }
+    return noError;
 }

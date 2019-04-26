@@ -23,15 +23,32 @@ SOFTWARE.
 */
 #include <print.h>
 #include <datastream.h>
+#include <results.h>
 
-void print_hex_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
+// TODO: refactor this!
+result print_hex_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
 {
-    print_digit(stream, data>>28);
-    print_digit(stream, data>>24);
-    print_digit(stream, data>>20);
-    print_digit(stream, data>>16);
-    print_digit(stream, data>>12);
-    print_digit(stream, data>>8);
-    print_digit(stream, data>>4);
-    print_digit(stream, data);
+    result printResult;
+    printResult = print_digit(stream, data>>28);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>24);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>20);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>16);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>12);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>8);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>4);
+    if(printResult != noError)
+        return printResult;
+    return print_digit(stream, data);
 }

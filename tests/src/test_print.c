@@ -23,13 +23,15 @@ SOFTWARE.
 */
 /*
 */
+#include <string.h>
 #include <sqMinUnitC.h>
 #include <test_print.h>
 #include <print.h>
+#include <mock_datastreamchar.h>
 
 static void testPrintSetup(void) 
 {
-    
+    mockDsCharReset();
 }
 
 static void testPrintTeardown(void) 
@@ -37,7 +39,20 @@ static void testPrintTeardown(void)
 
 }
 
-MU_TEST(testPrintNormal) 
+MU_TEST(testPrintDigit) 
+{
+    char testZero[] = "0";
+    char testNine[] = "9";
+    char testA[] = "A";
+    char testF[] = "F";
+    char testOutput[4];
+    mu_check(print_digit(&testDsChar, 0) == noError);
+    mu_check(mockDsGetWrites(testOutput, 1) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, testZero, 1) == 0);
+}
+
+MU_TEST(testPrintU8) 
 {
 
 }
@@ -45,7 +60,7 @@ MU_TEST(testPrintNormal)
 MU_TEST_SUITE(testPrint) 
 {
     MU_SUITE_CONFIGURE(&testPrintSetup, &testPrintTeardown);
-    MU_RUN_TEST(testPrintNormal);
+    MU_RUN_TEST(testPrintDigit);
 }
 
 void testPrintSuite()

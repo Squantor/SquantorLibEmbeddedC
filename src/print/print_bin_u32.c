@@ -23,16 +23,21 @@ SOFTWARE.
 */
 #include <print.h>
 #include <datastream.h>
+#include <results.h>
 
-void print_bin_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
+result print_bin_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
 {
     uint32_t mask = 0x80000000;
     while(mask != 0)
     {
+        result printResult;
         if(mask & data)
-            print_digit(stream, 1);
+            printResult = print_digit(stream, 1);
         else
-            print_digit(stream, 0);
+            printResult = print_digit(stream, 0);
+        if(printResult != noError)
+            return printResult;
         mask = mask >> 1;
     }
+    return noError;
 }

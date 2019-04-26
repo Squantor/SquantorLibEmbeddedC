@@ -24,10 +24,17 @@ SOFTWARE.
 #include <print.h>
 #include <datastream.h>
 
-void print_hex_u16(const datastreamChar_t *__restrict__ stream, const uint16_t data)
+result print_hex_u16(const datastreamChar_t *__restrict__ stream, const uint16_t data)
 {
-    print_digit(stream, data>>12);
-    print_digit(stream, data>>8);
-    print_digit(stream, data>>4);
-    print_digit(stream, data);
+    result printResult;
+    printResult = print_digit(stream, data>>12);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>8);
+    if(printResult != noError)
+        return printResult;
+    printResult = print_digit(stream, data>>4);
+    if(printResult != noError)
+        return printResult;
+    return print_digit(stream, data);
 }

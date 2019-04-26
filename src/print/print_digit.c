@@ -23,11 +23,12 @@ SOFTWARE.
 */
 #include <print.h>
 #include <datastream.h>
+#include <results.h>
 
 const char hextable[] = "0123456789ABCDEF";
 
-void print_digit(const datastreamChar_t *__restrict__ stream, const uint8_t data)
+result print_digit(const datastreamChar_t *__restrict__ stream, const uint8_t data)
 {
-    dsWriteChar(stream, hextable[data & 0x0F]);
+    return dsWriteChar(stream, hextable[data & 0x0F]);
 }
 

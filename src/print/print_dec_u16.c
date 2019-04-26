@@ -23,16 +23,20 @@ SOFTWARE.
 */
 #include <print.h>
 #include <datastream.h>
+#include <results.h>
 
-void print_dec_u16(const datastreamChar_t *__restrict__ stream, uint16_t data)
+result print_dec_u16(const datastreamChar_t *__restrict__ stream, uint16_t data)
 {
     uint16_t num = 10000;
     uint8_t idx;
     while(num > 0)
     {
         idx = data / num;
-        print_digit(stream, idx);
+        result printResult = print_digit(stream, idx);
+        if(printResult != noError)
+            return printResult;
         data -= idx * num;
         num = num / 10;
     }
+    return noError;
 }

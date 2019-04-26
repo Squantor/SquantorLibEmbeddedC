@@ -23,9 +23,13 @@ SOFTWARE.
 */
 #include <print.h>
 #include <datastream.h>
+#include <results.h>
 
-void print_hex_u8(const datastreamChar_t *__restrict__ stream, const uint8_t data)
+result print_hex_u8(const datastreamChar_t *__restrict__ stream, const uint8_t data)
 {
-    print_digit(stream, data>>4);
-    print_digit(stream, data);
+    result printResult;
+    printResult = print_digit(stream, data>>4);
+    if(printResult == noError)
+        return printResult;
+    return print_digit(stream, data);
 }
