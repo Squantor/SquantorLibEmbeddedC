@@ -25,14 +25,14 @@ SOFTWARE.
 #include <datastream.h>
 #include <results.h>
 
-result print_dec_u16(const datastreamChar_t *__restrict__ stream, uint16_t data)
+result printDecU16(const datastreamChar_t *__restrict__ stream, uint16_t data)
 {
     uint16_t num = 10000;
     uint8_t idx;
     while(num > 0)
     {
         idx = data / num;
-        result printResult = print_digit(stream, idx);
+        result printResult = printDigit(stream, idx);
         if(printResult != noError)
             return printResult;
         data -= idx * num;

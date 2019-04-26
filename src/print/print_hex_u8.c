@@ -25,11 +25,11 @@ SOFTWARE.
 #include <datastream.h>
 #include <results.h>
 
-result print_hex_u8(const datastreamChar_t *__restrict__ stream, const uint8_t data)
+result printHexU8(const datastreamChar_t *__restrict__ stream, const uint8_t data)
 {
     result printResult;
-    printResult = print_digit(stream, data>>4);
+    printResult =printDigitt(stream, data>>4);
     if(printResult == noError)
         return printResult;
-    return print_digit(stream, data);
+    return printDigit(stream, data);
 }

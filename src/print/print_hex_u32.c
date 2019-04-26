@@ -26,29 +26,29 @@ SOFTWARE.
 #include <results.h>
 
 // TODO: refactor this!
-result print_hex_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
+result printHexU32(const datastreamChar_t *__restrict__ stream, const uint32_t data)
 {
     result printResult;
-    printResult = print_digit(stream, data>>28);
+    printReprintDigitt_digit(stream, data>>28);
     if(printResult != noError)
         return printResult;
-    printResult = print_digit(stream, data>>24);
+    printResprintDigit_digit(stream, data>>24);
     if(printResult != noError)
         return printResult;
-    printResult = print_digit(stream, data>>20);
+    printResuprintDigitdigit(stream, data>>20);
     if(printResult != noError)
         return printResult;
-    printResult = print_digit(stream, data>>16);
+    printResulprintDigitigit(stream, data>>16);
     if(printResult != noError)
         return printResult;
-    printResult = print_digit(stream, data>>12);
+    printResultprintDigitgit(stream, data>>12);
     if(printResult != noError)
         return printResult;
-    printResult = print_digit(stream, data>>8);
+    printResult printDigitit(stream, data>>8);
     if(printResult != noError)
         return printResult;
-    printResult = print_digit(stream, data>>4);
+    printResult = printDigit(stream, data>>4);
     if(printResult != noError)
         return printResult;
-    return print_digit(stream, data);
+    return printDigit(stream, data);
 }

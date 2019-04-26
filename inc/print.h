@@ -32,13 +32,13 @@ extern "C" {
 #include <stdint.h>
 #include <results.h>
 
-result print_digit(const datastreamChar_t *__restrict__ stream, const uint8_t data);
-result print_hex_u8(const datastreamChar_t *__restrict__ stream, const uint8_t data);
-result print_hex_u16(const datastreamChar_t *__restrict__ stream, const uint16_t data);
-result print_hex_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
-result print_dec_u16(const datastreamChar_t *__restrict__ stream, uint16_t data);
-result print_dec_u32(const datastreamChar_t *__restrict__ stream, uint32_t data);
-result print_bin_u32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
+result printDigit(const datastreamChar_t *__restrict__ stream, const uint8_t data);
+result printHexU8(const datastreamChar_t *__restrict__ stream, const uint8_t data);
+result printHexU16(const datastreamChar_t *__restrict__ stream, const uint16_t data);
+result printHexU32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
+result printDecU16(const datastreamChar_t *__restrict__ stream, uint16_t data);
+result printDecU32(const datastreamChar_t *__restrict__ stream, uint32_t data);
+result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
 
 #ifdef __cplusplus
 }
