@@ -68,7 +68,7 @@ MU_TEST(testPrintHexU8)
 {
     char testA6[] = "A6";
     char testOutput[4];
-    mu_check(printHexU8(&testDsChar, 0xA6) == noError);
+    mu_check(printHex(&testDsChar, (uint8_t) 0xA6) == noError);
     mu_check(mockDsGetWrites(testOutput, 2) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, testA6, 2) == 0);
@@ -78,7 +78,7 @@ MU_TEST(testPrintHexU16)
 {
     char test1B2C[] = "1B2C";
     char testOutput[4];
-    mu_check(printHexU16(&testDsChar, 0x1B2C) == noError);
+    mu_check(printHex(&testDsChar, (uint16_t) 0x1B2C) == noError);
     mu_check(mockDsGetWrites(testOutput, 4) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test1B2C, 4) == 0);
@@ -88,7 +88,7 @@ MU_TEST(testPrintHexU32)
 {
     char test3D4E5F67[] = "3D4E5F67";
     char testOutput[8];
-    mu_check(printHexU32(&testDsChar, 0x3D4E5F67) == noError);
+    mu_check(printHex(&testDsChar, (uint32_t) 0x3D4E5F67) == noError);
     mu_check(mockDsGetWrites(testOutput, 8) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test3D4E5F67, 8) == 0);
@@ -100,15 +100,15 @@ MU_TEST(testPrintDecU16)
     char test12345[] = "12345";
     char test65535[] = "65535";
     char testOutput[8];
-    mu_check(printDecU16(&testDsChar, 0) == noError);
+    mu_check(printDec(&testDsChar, (uint16_t) 0) == noError);
     mu_check(mockDsGetWrites(testOutput, 5) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test00000, 5) == 0);
-    mu_check(printDecU16(&testDsChar, 12345) == noError);
+    mu_check(printDec(&testDsChar, (uint16_t) 12345) == noError);
     mu_check(mockDsGetWrites(testOutput, 5) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test12345, 5) == 0);
-    mu_check(printDecU16(&testDsChar, 65535) == noError);
+    mu_check(printDec(&testDsChar, (uint16_t) 65535) == noError);
     mu_check(mockDsGetWrites(testOutput, 5) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test65535, 5) == 0);
@@ -120,15 +120,15 @@ MU_TEST(testPrintDecU32)
     char test1234567890[] = "1234567890";
     char test4294967295[] = "4294967295";
     char testOutput[10];
-    mu_check(printDecU32(&testDsChar, 0) == noError);
+    mu_check(printDec(&testDsChar, (uint32_t) 0) == noError);
     mu_check(mockDsGetWrites(testOutput, 10) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test0000000000, 10) == 0);
-    mu_check(printDecU32(&testDsChar, 1234567890) == noError);
+    mu_check(printDec(&testDsChar, (uint32_t) 1234567890) == noError);
     mu_check(mockDsGetWrites(testOutput, 10) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test1234567890, 10) == 0);
-    mu_check(printDecU32(&testDsChar, 4294967295) == noError);
+    mu_check(printDec(&testDsChar, (uint32_t) 4294967295) == noError);
     mu_check(mockDsGetWrites(testOutput, 10) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test4294967295, 10) == 0);
@@ -138,7 +138,7 @@ MU_TEST(testPrintBinU32)
 {
     char test01011010111100001111111100000000[] = "01011010111100001111111100000000";
     char testOutput[32];
-    mu_check(printBinU32(&testDsChar, 1525743360) == noError);
+    mu_check(printBin(&testDsChar, (uint32_t) 1525743360) == noError);
     mu_check(mockDsGetWrites(testOutput, 32) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test01011010111100001111111100000000, 32) == 0);

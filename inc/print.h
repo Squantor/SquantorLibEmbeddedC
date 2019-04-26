@@ -40,6 +40,21 @@ result printDecU16(const datastreamChar_t *__restrict__ stream, uint16_t data);
 result printDecU32(const datastreamChar_t *__restrict__ stream, uint32_t data);
 result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
 
+#define printHex(stream, e) _Generic( e , \
+    uint8_t : printHexU8, \
+    uint16_t : printHexU16, \
+    uint32_t : printHexU32 \
+    )(stream, e)
+
+#define printDec(stream, e) _Generic( e , \
+    uint16_t : printDecU16, \
+    uint32_t : printDecU32 \
+    )(stream, e)
+
+#define printBin(stream, e) _Generic( e , \
+    uint32_t : printBinU32 \
+    )(stream, e)
+
 #ifdef __cplusplus
 }
 #endif
