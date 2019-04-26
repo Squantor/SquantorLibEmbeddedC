@@ -33,6 +33,7 @@ SOFTWARE.
 #include <test_dsputs.h>
 #include <test_command_mini.h>
 #include <test_prompt_mini.h>
+#include <test_print.h>
 
 int minunitRun; /* tests run */
 int minunitFailures; /* tests failed */
@@ -70,6 +71,7 @@ int main()
     testCmdPromptSuite();
     testPromptMiniSuite();
     testCommandMiniSuite();
+    testPrintSuite();
     if(minunitFailures != 0)
         println("Test failures occured!");
     else

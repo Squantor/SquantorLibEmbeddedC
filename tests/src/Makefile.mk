@@ -7,7 +7,8 @@ src/test_cmdprompt.c src/test_prompt_mini.c \
 src/test_command_mini.c \
 src/test_dswritechar.c src/test_dsreadchar.c \
 src/test_queue_char.c \
-src/test_dsputs.c
+src/test_dsputs.c \
+src/test_print.c
 CXX_SOURCES +=
 S_SOURCES +=
 INCLUDES = -Iinc -I../inc -IsquantorLibC/inc
