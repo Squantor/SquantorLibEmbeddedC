@@ -77,7 +77,7 @@ MU_TEST(testPrintHexU8)
 MU_TEST(testPrintHexU16) 
 {
     char test1B2C[] = "1B2C";
-    char testOutput[8];
+    char testOutput[4];
     mu_check(printHexU16(&testDsChar, 0x1B2C) == noError);
     mu_check(mockDsGetWrites(testOutput, 4) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
@@ -87,7 +87,7 @@ MU_TEST(testPrintHexU16)
 MU_TEST(testPrintHexU32) 
 {
     char test3D4E5F67[] = "3D4E5F67";
-    char testOutput[4];
+    char testOutput[8];
     mu_check(printHexU32(&testDsChar, 0x3D4E5F67) == noError);
     mu_check(mockDsGetWrites(testOutput, 8) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);

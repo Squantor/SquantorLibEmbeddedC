@@ -29,7 +29,7 @@ result printHexU8(const datastreamChar_t *__restrict__ stream, const uint8_t dat
 {
     result printResult;
     printResult = printDigit(stream, data>>4);
-    if(printResult == noError)
+    if(printResult != noError)
         return printResult;
     return printDigit(stream, data);
 }
