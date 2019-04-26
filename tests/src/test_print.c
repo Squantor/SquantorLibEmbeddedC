@@ -50,6 +50,18 @@ MU_TEST(testPrintDigit)
     mu_check(mockDsGetWrites(testOutput, 1) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, testZero, 1) == 0);
+    mu_check(print_digit(&testDsChar, 9) == noError);
+    mu_check(mockDsGetWrites(testOutput, 1) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, testNine, 1) == 0);
+    mu_check(print_digit(&testDsChar, 0x0A) == noError);
+    mu_check(mockDsGetWrites(testOutput, 1) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, testA, 1) == 0);
+    mu_check(print_digit(&testDsChar, 0x0F) == noError);
+    mu_check(mockDsGetWrites(testOutput, 1) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, testF, 1) == 0);
 }
 
 MU_TEST(testPrintU8) 
@@ -61,6 +73,7 @@ MU_TEST_SUITE(testPrint)
 {
     MU_SUITE_CONFIGURE(&testPrintSetup, &testPrintTeardown);
     MU_RUN_TEST(testPrintDigit);
+    MU_RUN_TEST(testPrintU8);
 }
 
 void testPrintSuite()
