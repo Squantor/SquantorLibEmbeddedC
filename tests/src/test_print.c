@@ -136,7 +136,12 @@ MU_TEST(testPrintDecU32)
 
 MU_TEST(testPrintBinU32)
 {
-    
+    char test01011010111100001111111100000000[] = "01011010111100001111111100000000";
+    char testOutput[32];
+    mu_check(printBinU32(&testDsChar, 1525743360) == noError);
+    mu_check(mockDsGetWrites(testOutput, 32) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test01011010111100001111111100000000, 32) == 0);
 }
 
 MU_TEST_SUITE(testPrint) 
