@@ -94,6 +94,51 @@ MU_TEST(testPrintHexU32)
     mu_check(memcmp(testOutput, test3D4E5F67, 8) == 0);
 }
 
+MU_TEST(testPrintDecU16)
+{
+    char test00000[] = "00000";
+    char test12345[] = "12345";
+    char test65535[] = "65535";
+    char testOutput[8];
+    mu_check(printDecU16(&testDsChar, 0) == noError);
+    mu_check(mockDsGetWrites(testOutput, 5) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test00000, 5) == 0);
+    mu_check(printDecU16(&testDsChar, 12345) == noError);
+    mu_check(mockDsGetWrites(testOutput, 5) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test12345, 5) == 0);
+    mu_check(printDecU16(&testDsChar, 65535) == noError);
+    mu_check(mockDsGetWrites(testOutput, 5) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test65535, 5) == 0);
+}
+
+MU_TEST(testPrintDecU32)
+{
+    char test0000000000[] = "0000000000";
+    char test1234567890[] = "1234567890";
+    char test4294967295[] = "4294967295";
+    char testOutput[10];
+    mu_check(printDecU32(&testDsChar, 0) == noError);
+    mu_check(mockDsGetWrites(testOutput, 10) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test0000000000, 10) == 0);
+    mu_check(printDecU32(&testDsChar, 1234567890) == noError);
+    mu_check(mockDsGetWrites(testOutput, 10) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test1234567890, 10) == 0);
+    mu_check(printDecU32(&testDsChar, 4294967295) == noError);
+    mu_check(mockDsGetWrites(testOutput, 10) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test4294967295, 10) == 0);
+}
+
+MU_TEST(testPrintBinU32)
+{
+    
+}
+
 MU_TEST_SUITE(testPrint) 
 {
     MU_SUITE_CONFIGURE(&testPrintSetup, &testPrintTeardown);
@@ -101,6 +146,9 @@ MU_TEST_SUITE(testPrint)
     MU_RUN_TEST(testPrintHexU8);
     MU_RUN_TEST(testPrintHexU16);
     MU_RUN_TEST(testPrintHexU32);
+    MU_RUN_TEST(testPrintDecU16);
+    MU_RUN_TEST(testPrintDecU32);
+    MU_RUN_TEST(testPrintBinU32);
 }
 
 void testPrintSuite()
