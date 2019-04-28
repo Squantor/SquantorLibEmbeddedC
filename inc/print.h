@@ -32,12 +32,18 @@ extern "C" {
 #include <stdint.h>
 #include <results.h>
 
+// print single digit, decimal or hex
 result printDigit(const datastreamChar_t *__restrict__ stream, const uint8_t data);
+// print hex number
 result printHexU8(const datastreamChar_t *__restrict__ stream, const uint8_t data);
 result printHexU16(const datastreamChar_t *__restrict__ stream, const uint16_t data);
 result printHexU32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
+// print decimal number with leading zeroes
 result printDecU16(const datastreamChar_t *__restrict__ stream, uint16_t data);
 result printDecU32(const datastreamChar_t *__restrict__ stream, uint32_t data);
+// print decimal number without leading zeroes
+result printDecNzU16(const datastreamChar_t *__restrict__ stream, uint16_t data);
+// print binary number
 result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
 
 #define printHex(stream, e) _Generic( e , \
@@ -49,6 +55,10 @@ result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t d
 #define printDec(stream, e) _Generic( e , \
     uint16_t : printDecU16, \
     uint32_t : printDecU32 \
+    )(stream, e)
+
+#define printDecNz(stream, e) _Generic( e , \
+    uint16_t : printDecNzU16 \
     )(stream, e)
 
 #define printBin(stream, e) _Generic( e , \

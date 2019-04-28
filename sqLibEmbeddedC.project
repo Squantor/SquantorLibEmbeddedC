@@ -20,6 +20,7 @@
   </VirtualDirectory>
   <VirtualDirectory Name="src">
     <VirtualDirectory Name="print">
+      <File Name="src/print/print_decnz_u16.c"/>
       <File Name="src/print/print_dec_u32.c"/>
       <File Name="src/print/print_hex_u32.c"/>
       <File Name="src/print/print_hex_u8.c"/>
