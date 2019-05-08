@@ -6,6 +6,8 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="src">
+    <File Name="src/test_dswrite.c"/>
+    <File Name="src/test_dsread.c"/>
     <File Name="src/test_print.c"/>
     <File Name="src/test_command_mini.c"/>
     <File Name="src/test_prompt_mini.c"/>
@@ -29,6 +31,8 @@
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_dswrite.h"/>
+    <File Name="inc/test_dsread.h"/>
     <File Name="inc/test_print.h"/>
     <File Name="inc/test_prompt_mini.h"/>
     <File Name="inc/test_command_mini.h"/>
