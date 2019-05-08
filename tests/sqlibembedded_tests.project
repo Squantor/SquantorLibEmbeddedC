@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqlibembedded_tests" Version="10.0.0" InternalType="">
   <VirtualDirectory Name="src">
+    <File Name="src/test_parse.c"/>
     <File Name="src/test_queue_char.c"/>
     <File Name="src/test_dummy.c"/>
     <File Name="src/test_print.c"/>
@@ -20,6 +21,7 @@
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="inc">
+    <File Name="inc/test_parse.h"/>
     <File Name="inc/test_parse_ansi.h"/>
     <File Name="inc/test_prompt_mini.h"/>
     <File Name="inc/test_queue.h"/>
