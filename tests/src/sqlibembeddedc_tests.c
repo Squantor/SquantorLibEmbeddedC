@@ -27,8 +27,6 @@ SOFTWARE.
 #include <test_parse_ansi.h>
 #include <test_queue_string.h>
 #include <test_cmdprompt.h>
-#include <test_dswritechar.h>
-#include <test_dsreadchar.h>
 #include <test_queue.h>
 #include <test_dsputs.h>
 #include <test_command_mini.h>

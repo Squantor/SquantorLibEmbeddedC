@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqlibembedded_tests" Version="10.0.0" InternalType="">
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="src">
-    <File Name="src/test_dswrite.c"/>
-    <File Name="src/test_dsread.c"/>
-    <File Name="src/test_print.c"/>
-    <File Name="src/test_command_mini.c"/>
-    <File Name="src/test_prompt_mini.c"/>
-    <File Name="src/test_dswriteu16.c"/>
-    <File Name="src/test_dsreadu16.c"/>
-    <File Name="src/test_dsreadu8.c"/>
-    <File Name="src/test_dsputs.c"/>
-    <File Name="src/test_dswriteu8.c"/>
     <File Name="src/test_queue_char.c"/>
     <File Name="src/test_dummy.c"/>
+    <File Name="src/test_print.c"/>
     <File Name="src/mock_datastreamchar.c"/>
-    <File Name="src/test_dswritechar.c"/>
+    <File Name="src/test_dswrite.c"/>
+    <File Name="src/test_command_mini.c"/>
     <File Name="src/test_cmdprompt.c"/>
-    <File Name="src/test_dsreadchar.c"/>
+    <File Name="src/test_prompt_mini.c"/>
+    <File Name="src/test_dsread.c"/>
+    <File Name="src/test_dsputs.c"/>
     <File Name="src/test_queue_string.c"/>
     <File Name="src/sqlibembeddedc_tests.c"/>
     <File Name="src/test_parse_ansi.c"/>
@@ -31,31 +20,30 @@
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="inc">
-    <File Name="inc/test_dswrite.h"/>
-    <File Name="inc/test_dsread.h"/>
-    <File Name="inc/test_print.h"/>
-    <File Name="inc/test_prompt_mini.h"/>
-    <File Name="inc/test_command_mini.h"/>
-    <File Name="inc/test_dswriteu16.h"/>
-    <File Name="inc/test_dsreadu8.h"/>
-    <File Name="inc/test_dsreadu16.h"/>
-    <File Name="inc/test_dsputs.h"/>
-    <File Name="inc/test_dswriteu8.h"/>
-    <File Name="inc/test_queue.h"/>
-    <File Name="inc/test_dsreadchar.h"/>
     <File Name="inc/test_parse_ansi.h"/>
+    <File Name="inc/test_prompt_mini.h"/>
+    <File Name="inc/test_queue.h"/>
     <File Name="inc/test_queue_string.h"/>
     <File Name="inc/mock_datastreamchar.h"/>
+    <File Name="inc/test_dsputs.h"/>
     <File Name="inc/sqMinUnitC.h"/>
-    <File Name="inc/test_dswritechar.h"/>
+    <File Name="inc/test_command_mini.h"/>
+    <File Name="inc/test_print.h"/>
     <File Name="inc/test_cmdprompt.h"/>
     <File Name="inc/test_dummy.h"/>
+    <File Name="inc/test_dswrite.h"/>
+    <File Name="inc/test_dsread.h"/>
     <VirtualDirectory Name="rt0">
       <File Name="inc/rt0/syscall.h"/>
       <File Name="inc/rt0/sys64.h"/>
       <File Name="inc/rt0/rt0.h"/>
     </VirtualDirectory>
   </VirtualDirectory>
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Executable">
