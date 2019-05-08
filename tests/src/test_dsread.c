@@ -25,10 +25,14 @@ SOFTWARE.
 */
 #include <sqMinUnitC.h>
 #include <test_dsread.h>
+#include <datastream.h>
+#include <mock_datastreamchar.h>
+
+char testabc[] = "abc";
 
 static void testDsReadSetup(void) 
 {
-    
+    mockDsCharReset();
 }
 
 static void testDsReadTeardown(void) 
@@ -36,15 +40,25 @@ static void testDsReadTeardown(void)
 
 }
 
-MU_TEST(testDsReadNormal) 
+MU_TEST(testDsReadCharNormal) 
 {
-
+    char c;
+    mu_check(mockDsPutReads(testabc, sizeof(testabc)) == noError);
+    mu_check(dsReadElement(&testDsChar, &c) == noError);
+    mu_check(c == 'a');
+    mu_check(dsReadElement(&testDsChar, &c) == noError);
+    mu_check(c == 'b');
+    mu_check(dsReadElement(&testDsChar, &c) == noError);
+    mu_check(c == 'c');
+    mu_check(dsReadElement(&testDsChar, &c) == noError);
+    mu_check(c == '\0');
+    mu_check(dsReadElement(&testDsChar, &c) == streamEmtpy);
 }
 
 MU_TEST_SUITE(testDsRead) 
 {
     MU_SUITE_CONFIGURE(&testDsReadSetup, &testDsReadTeardown);
-    MU_RUN_TEST(testDsReadNormal);
+    MU_RUN_TEST(testDsReadCharNormal);
 }
 
 void testDsReadSuite()

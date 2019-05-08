@@ -5,7 +5,6 @@ src/mock_datastreamchar.c \
 src/test_parse_ansi.c src/test_queue_string.c \
 src/test_cmdprompt.c src/test_prompt_mini.c \
 src/test_command_mini.c \
-src/test_dswritechar.c src/test_dsreadchar.c \
 src/test_dswrite.c src/test_dsread.c \
 src/test_queue_char.c \
 src/test_dsputs.c \

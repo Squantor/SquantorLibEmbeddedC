@@ -25,10 +25,12 @@ SOFTWARE.
 */
 #include <sqMinUnitC.h>
 #include <test_dswrite.h>
+#include <datastream.h>
+#include <mock_datastreamchar.h>
 
 static void testDsWriteSetup(void) 
 {
-    
+    mockDsCharReset();
 }
 
 static void testDsWriteTeardown(void) 
@@ -36,15 +38,16 @@ static void testDsWriteTeardown(void)
 
 }
 
-MU_TEST(testDsWriteNormal) 
+MU_TEST(testDsWriteCharNormal) 
 {
-
+    mu_check(dsWriteElement(&testDsChar, 'a') == noError);
+    mu_check(dsWriteElement(&testDsChar, 'b') == noError);
 }
 
 MU_TEST_SUITE(testDsWrite) 
 {
     MU_SUITE_CONFIGURE(&testDsWriteSetup, &testDsWriteTeardown);
-    MU_RUN_TEST(testDsWriteNormal);
+    MU_RUN_TEST(testDsWriteCharNormal);
 }
 
 void testDsWriteSuite()

@@ -67,15 +67,13 @@ int main()
     testParseAnsiSuite();
     testQueueSuite();
     testQueueStringSuite();
-    testDsWriteCharSuite();
-    testDsReadCharSuite();
+    testDsReadSuite();
+    testDsWriteSuite();
     testdsPutsSuite();
     testCmdPromptSuite();
     testPromptMiniSuite();
     testCommandMiniSuite();
     testPrintSuite();
-    testDsReadSuite();
-    testDsWriteSuite();
     if(minunitFailures != 0)
         println("Test failures occured!");
     else
