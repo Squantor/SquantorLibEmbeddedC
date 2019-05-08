@@ -6,6 +6,7 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/parse.h"/>
     <File Name="inc/print.h"/>
     <File Name="inc/prompt_mini.h"/>
     <File Name="inc/command_mini.h"/>
@@ -19,6 +20,10 @@
     <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="parse">
+      <File Name="src/parse/parse_decimal.c"/>
+      <File Name="src/parse/parse_hex.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="print">
       <File Name="src/print/print_decnz_u16.c"/>
       <File Name="src/print/print_dec_u32.c"/>
