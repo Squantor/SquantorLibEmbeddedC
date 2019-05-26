@@ -24,6 +24,7 @@ SOFTWARE.
 #include <stddef.h>
 #include <command_mini.h>
 #include <string.h>
+#include <stdlib.h>
 
 int commandCompare(const char *pattern, const char *cmdline)
 {
@@ -33,7 +34,7 @@ int commandCompare(const char *pattern, const char *cmdline)
         ++cmdline;
     }
     // check if the command has an argument
-    if((*pattern == '\0') && (*cmdline == ' ')
+    if((*pattern == '\0') && (*cmdline == ' '))
         // yes, pattern ended with terminator and cmdline had more chars
         return 0;
     else
@@ -47,9 +48,12 @@ result commandInterpret(commandEntry_t *restrict list, const char *restrict comm
         if(commandCompare(list->command, command) == 0)
         {
             // scan for argument
-            char * argpos = strchr(command, ' ');
-            if()
-                ;
+            char *argpos = strchr(command, ' ');
+            if(argpos != NULL)
+            {
+                int arg = strtol(argpos, NULL, 0);
+                return list->handler(&arg);
+            }
             else
                 return list->handler(NULL);
         }

@@ -32,16 +32,22 @@ const char testcmd2[] = "def";
 
 int handleCmd1Count;
 int handleCmd2Count;
+int handleCmd1Arg;
+int handleCmd2Arg;
 
-result testHandleCmd1(void)
+result testHandleCmd1(int *argument)
 {
     handleCmd1Count++;
+    if(argument != NULL)
+        handleCmd1Arg = *argument;
     return noError;
 }
 
-result testHandleCmd2(void)
+result testHandleCmd2(int *argument)
 {
     handleCmd2Count++;
+    if(argument != NULL)
+        handleCmd2Arg = *argument;
     return resultEnd;
 }
 
@@ -55,6 +61,8 @@ static void testCommandMiniSetup(void)
 {
     handleCmd1Count = 0;
     handleCmd2Count = 0;
+    handleCmd1Arg = 0;
+    handleCmd2Arg = 0;
 }
 
 static void testCommandMiniTeardown(void) 
@@ -70,6 +78,16 @@ MU_TEST(testCommandMiniNormal)
     mu_check(handleCmd2Count == 1);
 }
 
+MU_TEST(testCommandMiniNormalArg)
+{
+    mu_check(commandInterpret(testlist, "abc 123") == noError);
+    mu_check(handleCmd1Count == 1); 
+    mu_check(handleCmd1Arg == 123);
+    mu_check(commandInterpret(testlist, "def 0x1234") == resultEnd);
+    mu_check(handleCmd2Count == 1); 
+    mu_check(handleCmd2Arg == 0x1234);
+}
+
 MU_TEST(testCommandMiniFail) 
 {
     mu_check(commandInterpret(testlist, "ghi") == commandNotFound);
@@ -81,6 +99,7 @@ MU_TEST_SUITE(testCommandMini)
 {
     MU_SUITE_CONFIGURE(&testCommandMiniSetup, &testCommandMiniTeardown);
     MU_RUN_TEST(testCommandMiniNormal);
+    MU_RUN_TEST(testCommandMiniNormalArg);
     MU_RUN_TEST(testCommandMiniFail);
 }
 
