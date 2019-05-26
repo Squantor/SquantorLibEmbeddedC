@@ -33,7 +33,7 @@ extern "C" {
 typedef struct command_entry
 {
     const char * const command;
-    result (*const handler)(void);
+    result (*const handler)(int *argument);
 } commandEntry_t;
 
 result commandInterpret(commandEntry_t *__restrict__ list, const char *__restrict__ command);

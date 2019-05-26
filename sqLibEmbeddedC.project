@@ -1,58 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="sqLibEmbeddedC" Version="10.0.0" InternalType="">
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="inc">
-    <File Name="inc/parse.h"/>
+    <File Name="inc/parse_ansi.h"/>
+    <File Name="inc/cmdline.h"/>
+    <File Name="inc/results.h"/>
+    <File Name="inc/queue_string.h"/>
     <File Name="inc/print.h"/>
     <File Name="inc/prompt_mini.h"/>
     <File Name="inc/command_mini.h"/>
-    <File Name="inc/cmdline.h"/>
-    <File Name="inc/queue.h"/>
-    <File Name="inc/parse_ansi.h"/>
-    <File Name="inc/results.h"/>
-    <File Name="inc/queue_string.h"/>
     <File Name="inc/queue_macro.h"/>
     <File Name="inc/cmdline_prompt.h"/>
+    <File Name="inc/queue.h"/>
     <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
-    <VirtualDirectory Name="parse">
-      <File Name="src/parse/parse_decimal.c"/>
-      <File Name="src/parse/parse_hex.c"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="print">
-      <File Name="src/print/print_decnz_u16.c"/>
-      <File Name="src/print/print_dec_u32.c"/>
-      <File Name="src/print/print_hex_u32.c"/>
-      <File Name="src/print/print_hex_u8.c"/>
-      <File Name="src/print/print_dec_u16.c"/>
-      <File Name="src/print/print_hex_u16.c"/>
-      <File Name="src/print/print_digit.c"/>
-      <File Name="src/print/print_bin_u32.c"/>
-    </VirtualDirectory>
     <VirtualDirectory Name="prompt">
       <File Name="src/prompt/prompt_mini.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="command">
       <File Name="src/command/command_mini.c"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="datastream">
+      <File Name="src/datastream/dswriteu16.c"/>
+      <File Name="src/datastream/dswritechar.c"/>
+      <File Name="src/datastream/dsreadu8.c"/>
+      <File Name="src/datastream/dsreadchar.c"/>
+      <File Name="src/datastream/dsreadu16.c"/>
+      <File Name="src/datastream/dsputs.c"/>
+      <File Name="src/datastream/dswriteu8.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="print">
+      <File Name="src/print/print_dec_u32.c"/>
+      <File Name="src/print/print_hex_u32.c"/>
+      <File Name="src/print/print_hex_u8.c"/>
+      <File Name="src/print/print_dec_u16.c"/>
+      <File Name="src/print/print_decnz_u16.c"/>
+      <File Name="src/print/print_hex_u16.c"/>
+      <File Name="src/print/print_digit.c"/>
+      <File Name="src/print/print_bin_u32.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="queue">
       <File Name="src/queue/queue_uint8.c"/>
       <File Name="src/queue/queue_string.c"/>
       <File Name="src/queue/queue_char.c"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="datastream">
-      <File Name="src/datastream/dswriteu16.c"/>
-      <File Name="src/datastream/dsreadu16.c"/>
-      <File Name="src/datastream/dsputs.c"/>
-      <File Name="src/datastream/dswritechar.c"/>
-      <File Name="src/datastream/dsreadu8.c"/>
-      <File Name="src/datastream/dsreadchar.c"/>
-      <File Name="src/datastream/dswriteu8.c"/>
     </VirtualDirectory>
     <VirtualDirectory Name="cmdline">
       <File Name="src/cmdline/cmdline_prompt.c"/>
@@ -61,6 +51,11 @@
       <File Name="src/ansi/parse_ansi.c"/>
     </VirtualDirectory>
   </VirtualDirectory>
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Dynamic Library">
