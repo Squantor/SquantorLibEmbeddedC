@@ -21,6 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+#include <stdbool.h>
 #include <print.h>
 #include <datastream.h>
 #include <results.h>
@@ -29,11 +30,16 @@ result printDecNzU16(const datastreamChar_t *__restrict__ stream, uint16_t data)
 {
     uint16_t num = 10000;
     uint8_t idx;
+    bool hitDigits = false;
+    if(data == 0)
+        return printDigit(stream, 0);
     while(num > 0)
     {
         idx = data / num;
-        if(idx != 0)
+        if((idx != 0) || (hitDigits == true))
         {
+            // we have a non zero digit, now print everything
+            hitDigits = true;
             result printResult = printDigit(stream, idx);
             if(printResult != noError)
                 return printResult;

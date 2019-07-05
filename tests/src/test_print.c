@@ -114,6 +114,52 @@ MU_TEST(testPrintDecU16)
     mu_check(memcmp(testOutput, test65535, 5) == 0);
 }
 
+MU_TEST(testPrintDecNzU16)
+{
+    char test0[] = "0";
+    char test10[] = "10";
+    char test100[] = "100";
+    char test1000[] = "1000";
+    char test10000[] = "10000";
+    char test12345[] = "12345";
+    char test65535[] = "65535";
+    char testOutput[8];
+    mu_check(printDecNz(&testDsChar, (uint16_t) 0) == noError);
+    mu_check(mockDsGetWrites(testOutput, 1) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test0, 1) == 0);
+    
+    mu_check(printDecNz(&testDsChar, (uint16_t) 10) == noError);
+    mu_check(mockDsGetWrites(testOutput, 2) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test10, 2) == 0);
+    
+    mu_check(printDecNz(&testDsChar, (uint16_t) 100) == noError);
+    mu_check(mockDsGetWrites(testOutput, 3) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test100, 3) == 0);
+    
+    mu_check(printDecNz(&testDsChar, (uint16_t) 1000) == noError);
+    mu_check(mockDsGetWrites(testOutput, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test1000, 4) == 0);
+    
+    mu_check(printDecNz(&testDsChar, (uint16_t) 10000) == noError);
+    mu_check(mockDsGetWrites(testOutput, 4) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test10000, 5) == 0);
+    
+    mu_check(printDecNz(&testDsChar, (uint16_t) 12345) == noError);
+    mu_check(mockDsGetWrites(testOutput, 5) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test12345, 5) == 0);
+    
+    mu_check(printDecNz(&testDsChar, (uint16_t) 65535) == noError);
+    mu_check(mockDsGetWrites(testOutput, 5) == noError);
+    mu_check(mockDsGetWriteStatus() == queueEmpty);
+    mu_check(memcmp(testOutput, test65535, 5) == 0);
+}
+
 MU_TEST(testPrintDecU32)
 {
     char test0000000000[] = "0000000000";
@@ -152,6 +198,7 @@ MU_TEST_SUITE(testPrint)
     MU_RUN_TEST(testPrintHexU16);
     MU_RUN_TEST(testPrintHexU32);
     MU_RUN_TEST(testPrintDecU16);
+    MU_RUN_TEST(testPrintDecNzU16);
     MU_RUN_TEST(testPrintDecU32);
     MU_RUN_TEST(testPrintBinU32);
 }
