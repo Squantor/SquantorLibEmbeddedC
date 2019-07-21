@@ -73,13 +73,13 @@ static void testPromptMiniTeardown(void)
 
 MU_TEST(testPromptMiniEmpty) 
 {
-    mu_check(mockDsPutReadsString("\n") == noError);
+    mu_check(mockDsPutReadsString("\r") == noError);
     mu_check(promptProcess(&testPromptMiniData, &testDsChar) == promptError);
 }
 
 MU_TEST(testPromptMiniNormal) 
 {
-    mu_check(mockDsPutReadsString("abcde\n") == noError);
+    mu_check(mockDsPutReadsString("abcde\r") == noError);
     mu_check(testPromptMiniLoop(5) == 0);
     mu_check(promptProcess(&testPromptMiniData, &testDsChar) == resultEnd);
     mu_check(strcmp(testPromptMiniHandlerbuf, "abcde") == 0);
