@@ -40,8 +40,8 @@ result promptProcess(promptData_t *const promptData, const datastreamChar_t *str
     }
     switch(c)
     {
-        case ASCII_CR:
-            dsWriteChar(stream, ASCII_CR);
+        case ASCII_LF:
+            dsWriteChar(stream, ASCII_LF);
             // terminate prompt string
             promptData->buffer[promptData->bufferIndex] = ASCII_NUL;
             // check length
@@ -53,7 +53,7 @@ result promptProcess(promptData_t *const promptData, const datastreamChar_t *str
             // execute
             return promptData->commandHandler(promptData->buffer);
             break;
-        case ASCII_LF:
+        case ASCII_CR:
             // just ignore line feeds
         break;
         default:
