@@ -26,7 +26,7 @@ SOFTWARE.
 #include <string.h>
 #include <stdlib.h>
 
-int commandCompare(const char *pattern, const char *cmdline)
+int commandCompare(const char *__restrict__ pattern, const char *__restrict__ cmdline)
 {
     while((*pattern) && (*pattern == *cmdline))
     {
@@ -41,7 +41,7 @@ int commandCompare(const char *pattern, const char *cmdline)
         return(*(unsigned char *)pattern - *(unsigned char *)cmdline);
 }
 
-result commandInterpret(commandEntry_t *restrict list, const char *restrict command)
+result commandInterpret(commandEntry_t *__restrict__ list, const char *__restrict__ command)
 {
     while(list->handler != NULL)
     {
