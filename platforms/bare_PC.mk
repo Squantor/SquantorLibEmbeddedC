@@ -4,7 +4,7 @@ C_SOURCES +=
 CXX_SOURCES +=
 S_SOURCES +=
 
-# the bare pc target needs its own libc include path to prevent build system includes of leaking in
+# the bare pc target needs its own libc include path
 ifdef LIBC_INC
 INCLUDES += -I$(LIBC_INC)
 else
