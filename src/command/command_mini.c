@@ -52,10 +52,12 @@ result commandInterpret(commandEntry_t *__restrict__ list, const char *__restric
             const char *s = command;
             while(isalnum(*s))
                 s++;
-            // scan for whitespace pattern
-            // have we reached nul char?
-            // yes call with NULL
-            // nope call with *s
+            while(isspace(*s))
+                s++;
+            if(*s == '\0')
+                return list->handler(NULL);
+            else
+                return list->handler(s);
         }
         list++;
     }
