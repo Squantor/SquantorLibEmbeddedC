@@ -50,10 +50,7 @@ result commandInterpret(commandEntry_t *restrict list, const char *restrict comm
             // scan for argument
             char *argpos = strchr(command, ' ');
             if(argpos != NULL)
-            {
-                int arg = strtol(argpos, NULL, 0);
-                return list->handler(&arg);
-            }
+                return list->handler(argpos);
             else
                 return list->handler(NULL);
         }
