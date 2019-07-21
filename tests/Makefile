@@ -86,13 +86,13 @@ DEPS = $(OBJECTS:.o=.d)
 # Standard, non-optimized release build
 release: dirs
 	$(MAKE) -C squantorLibC release PLATFORM=$(PLATFORM)
-	$(MAKE) -C .. release PLATFORM=$(PLATFORM)
+	$(MAKE) -C .. release PLATFORM=$(PLATFORM) LIBC_INC=./tests/squantorLibC/inc/
 	$(MAKE) all --no-print-directory
 
 # Debug build for gdb debugging
 debug: dirs
 	$(MAKE) -C squantorLibC debug PLATFORM=$(PLATFORM)
-	$(MAKE) -C .. debug PLATFORM=$(PLATFORM)
+	$(MAKE) -C .. debug PLATFORM=$(PLATFORM) LIBC_INC=./tests/squantorLibC/inc/
 	$(MAKE) all --no-print-directory
 
 # Create the directories used in the build
