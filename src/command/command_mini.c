@@ -25,6 +25,7 @@ SOFTWARE.
 #include <command_mini.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 int commandCompare(const char *__restrict__ pattern, const char *__restrict__ cmdline)
 {
@@ -47,12 +48,14 @@ result commandInterpret(commandEntry_t *__restrict__ list, const char *__restric
     {
         if(commandCompare(list->command, command) == 0)
         {
-            // scan for argument
-            char *argpos = strchr(command, ' ');
-            if(argpos != NULL)
-                return list->handler(argpos);
-            else
-                return list->handler(NULL);
+            // we have matched the command, parse argument and if needed pass to handler
+            const char *s = command;
+            while(isalnum(*s))
+                s++;
+            // scan for whitespace pattern
+            // have we reached nul char?
+            // yes call with NULL
+            // nope call with *s
         }
         list++;
     }
