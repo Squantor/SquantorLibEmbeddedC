@@ -50,7 +50,7 @@ result commandInterpret(commandEntry_t *__restrict__ list, const char *__restric
         {
             const char *s = command;
             // skip the matched command part
-            s = s + strlen(command);
+            s = s + strlen(list->command);
             // skip any whitespace
             while(isspace(*s))
                 s++;
