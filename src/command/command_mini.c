@@ -48,10 +48,9 @@ result commandInterpret(commandEntry_t *__restrict__ list, const char *__restric
     {
         if(commandCompare(list->command, command) == 0)
         {
-            // we have matched the command, parse argument and if needed pass to handler
             const char *s = command;
-            while(isalnum(*s))
-                s++;
+            // skip the matched command part
+            s = s + strlen(command);
             while(isspace(*s))
                 s++;
             if(*s == '\0')
