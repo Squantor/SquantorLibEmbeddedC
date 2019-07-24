@@ -34,8 +34,8 @@ int commandCompare(const char *__restrict__ pattern, const char *__restrict__ cm
         ++pattern;
         ++cmdline;
     }
-    // check if the command has an argument
-    if((*pattern == '\0') && (*cmdline == ' '))
+    // did we reach end of pattern?
+    if((*pattern == '\0'))
         // yes, pattern ended with terminator and cmdline had more chars
         return 0;
     else
