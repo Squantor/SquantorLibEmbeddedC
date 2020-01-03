@@ -25,37 +25,39 @@ SOFTWARE.
 #include <command_mini.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
-int commandCompare(const char *pattern, const char *cmdline)
+int commandCompare(const char *__restrict__ pattern, const char *__restrict__ cmdline)
 {
     while((*pattern) && (*pattern == *cmdline))
     {
         ++pattern;
         ++cmdline;
     }
-    // check if the command has an argument
-    if((*pattern == '\0') && (*cmdline == ' '))
+    // did we reach end of pattern?
+    if((*pattern == '\0'))
         // yes, pattern ended with terminator and cmdline had more chars
         return 0;
     else
         return(*(unsigned char *)pattern - *(unsigned char *)cmdline);
 }
 
-result commandInterpret(commandEntry_t *restrict list, const char *restrict command)
+result commandInterpret(commandEntry_t *__restrict__ list, const char *__restrict__ command)
 {
     while(list->handler != NULL)
     {
         if(commandCompare(list->command, command) == 0)
         {
-            // scan for argument
-            char *argpos = strchr(command, ' ');
-            if(argpos != NULL)
-            {
-                int arg = strtol(argpos, NULL, 0);
-                return list->handler(&arg);
-            }
-            else
+            const char *s = command;
+            // skip the matched command part
+            s = s + strlen(list->command);
+            // skip any whitespace
+            while(isspace(*s))
+                s++;
+            if(*s == '\0')
                 return list->handler(NULL);
+            else
+                return list->handler(s);
         }
         list++;
     }

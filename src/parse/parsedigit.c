@@ -21,25 +21,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#ifndef COMMAND_MINI_H
-#define COMMAND_MINI_H
+#include <parsedigit.h>
+#include <ctype.h>
 
-#include <results.h>
+const char digitsLower[16] = "0123456789abcdef";
+const char digitsHigher[16] = "0123456789ABCDEF";
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct command_entry
+parseResult parseDigit(const char c, unsigned int *value)
 {
-    const char *const command;
-    result (*const handler)(const char *argument);
-} commandEntry_t;
-
-result commandInterpret(commandEntry_t *__restrict__ list, const char *__restrict__ command);
-
-#ifdef __cplusplus
+    for(int i = 0; i < 16; i++)
+    {
+        if(digitsLower[i] == c || digitsHigher[i] == c)
+        {
+            *value = (unsigned int) i;
+            return parseOk;
+        }
+    }
+    return parseFailed;
 }
-#endif
-
-#endif

@@ -26,28 +26,29 @@ SOFTWARE.
 #include <sqMinUnitC.h>
 #include <test_command_mini.h>
 #include <command_mini.h>
+#include <string.h>
 
 const char testcmd1[] = "abc";
 const char testcmd2[] = "def";
 
 int handleCmd1Count;
 int handleCmd2Count;
-int handleCmd1Arg;
-int handleCmd2Arg;
+char handleCmd1Arg[16];
+char handleCmd2Arg[16];
 
-result testHandleCmd1(int *argument)
+result testHandleCmd1(const char *argument)
 {
     handleCmd1Count++;
     if(argument != NULL)
-        handleCmd1Arg = *argument;
+        strncpy(handleCmd1Arg, argument, sizeof(handleCmd1Arg));
     return noError;
 }
 
-result testHandleCmd2(int *argument)
+result testHandleCmd2(const char *argument)
 {
     handleCmd2Count++;
     if(argument != NULL)
-        handleCmd2Arg = *argument;
+        strncpy(handleCmd2Arg, argument, sizeof(handleCmd2Arg));
     return resultEnd;
 }
 
@@ -61,8 +62,8 @@ static void testCommandMiniSetup(void)
 {
     handleCmd1Count = 0;
     handleCmd2Count = 0;
-    handleCmd1Arg = 0;
-    handleCmd2Arg = 0;
+    memset(handleCmd1Arg, 0, sizeof(handleCmd1Arg));
+    memset(handleCmd2Arg, 0, sizeof(handleCmd2Arg));
 }
 
 static void testCommandMiniTeardown(void) 
@@ -82,10 +83,10 @@ MU_TEST(testCommandMiniNormalArg)
 {
     mu_check(commandInterpret(testlist, "abc 123") == noError);
     mu_check(handleCmd1Count == 1); 
-    mu_check(handleCmd1Arg == 123);
+    mu_check(strncmp(handleCmd1Arg, "123", sizeof(handleCmd1Arg)) == 0);
     mu_check(commandInterpret(testlist, "def 0x1234") == resultEnd);
     mu_check(handleCmd2Count == 1); 
-    mu_check(handleCmd2Arg == 0x1234);
+    mu_check(strncmp(handleCmd2Arg, "0x1234", sizeof(handleCmd2Arg)) == 0);
 }
 
 MU_TEST(testCommandMiniFail) 

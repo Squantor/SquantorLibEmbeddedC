@@ -6,6 +6,7 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="inc">
+    <File Name="inc/parsedigit.h"/>
     <File Name="inc/parse_ansi.h"/>
     <File Name="inc/cmdline.h"/>
     <File Name="inc/results.h"/>
@@ -19,6 +20,9 @@
     <File Name="inc/datastream.h"/>
   </VirtualDirectory>
   <VirtualDirectory Name="src">
+    <VirtualDirectory Name="parse">
+      <File Name="src/parse/parsedigit.c"/>
+    </VirtualDirectory>
     <VirtualDirectory Name="prompt">
       <File Name="src/prompt/prompt_mini.c"/>
     </VirtualDirectory>

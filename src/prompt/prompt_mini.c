@@ -27,7 +27,8 @@ SOFTWARE.
 #include <string.h>
 
 #define ASCII_NUL   (0)
-#define ASCII_CR    (13)    // Carriage Return
+#define ASCII_CR    ('\r')    // Carriage Return
+#define ASCII_LF    ('\n')    // Line Feed
 
 result promptProcess(promptData_t *const promptData, const datastreamChar_t *stream)
 {
@@ -52,6 +53,9 @@ result promptProcess(promptData_t *const promptData, const datastreamChar_t *str
             // execute
             return promptData->commandHandler(promptData->buffer);
             break;
+        case ASCII_LF:
+            // just ignore line feeds
+        break;
         default:
             // always leave one space for zero terminator
             if(promptData->bufferIndex < (promptData->bufSize - 1))

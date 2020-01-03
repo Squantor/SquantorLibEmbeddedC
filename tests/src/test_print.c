@@ -145,7 +145,7 @@ MU_TEST(testPrintDecNzU16)
     mu_check(memcmp(testOutput, test1000, 4) == 0);
     
     mu_check(printDecNz(&testDsChar, (uint16_t) 10000) == noError);
-    mu_check(mockDsGetWrites(testOutput, 4) == noError);
+    mu_check(mockDsGetWrites(testOutput, 5) == noError);
     mu_check(mockDsGetWriteStatus() == queueEmpty);
     mu_check(memcmp(testOutput, test10000, 5) == 0);
     
