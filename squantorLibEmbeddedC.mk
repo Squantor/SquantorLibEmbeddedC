@@ -45,6 +45,6 @@ squantorLibEmbeddedC/src/print/print_dec_u32.c \
 squantorLibEmbeddedC/src/print/print_bin_u32.c \
 squantorLibEmbeddedC/src/parse/parsedigit.c
 
-INCLUDES += -IsquantorLibEmbeddedC/inc -IsquantorLibEmbeddedC/inc_internal
+INCLUDES += -IsquantorLibEmbeddedC/inc
 
 
