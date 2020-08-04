@@ -41,6 +41,7 @@ squantorLibEmbeddedC/src/print/print_hex_u16.c \
 squantorLibEmbeddedC/src/print/print_hex_u32.c \
 squantorLibEmbeddedC/src/print/print_dec_u16.c \
 squantorLibEmbeddedC/src/print/print_decnz_u16.c \
+squantorLibEmbeddedC/src/print/print_decnz_u32.c \
 squantorLibEmbeddedC/src/print/print_dec_u32.c \
 squantorLibEmbeddedC/src/print/print_bin_u32.c \
 squantorLibEmbeddedC/src/parse/parsedigit.c

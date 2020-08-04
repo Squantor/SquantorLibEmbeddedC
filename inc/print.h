@@ -43,6 +43,7 @@ result printDecU16(const datastreamChar_t *__restrict__ stream, uint16_t data);
 result printDecU32(const datastreamChar_t *__restrict__ stream, uint32_t data);
 // print decimal number without leading zeroes
 result printDecNzU16(const datastreamChar_t *__restrict__ stream, uint16_t data);
+result printDecNzU32(const datastreamChar_t *__restrict__ stream, uint32_t data);
 // print binary number
 result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t data);
 
@@ -58,7 +59,8 @@ result printBinU32(const datastreamChar_t *__restrict__ stream, const uint32_t d
     )(stream, e)
 
 #define printDecNz(stream, e) _Generic( e , \
-    uint16_t : printDecNzU16 \
+    uint16_t : printDecNzU16, \
+    uint32_t : printDecNzU32 \
     )(stream, e)
 
 #define printBin(stream, e) _Generic( e , \
